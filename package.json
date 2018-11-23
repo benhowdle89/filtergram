@@ -8,14 +8,17 @@
   },
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^6.1.0",
     "express": "^4.16.4",
     "node-fetch": "^2.3.0",
+    "pg": "^7.6.1",
     "puppeteer": "^1.10.0"
   },
   "scripts": {
     "client": "cd client && yarn start",
     "server": "nodemon",
-    "dev": "concurrently --names \"API,CLIENT\" --prefix-colors \"magenta,yellow\" --kill-others-on-fail \"yarn server\" \"yarn client\""
+    "dev": "concurrently --names \"API,CLIENT\" --prefix-colors \"magenta,yellow\" --kill-others-on-fail \"yarn server\" \"yarn client\"",
+    "start": "node etc/db-structure.js && node index.js"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"
