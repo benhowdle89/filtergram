@@ -1,13 +1,30 @@
 require("dotenv").config();
 
 const express = require("express");
+const cors = require("cors");
 const path = require("path");
+const bodyParser = require("body-parser");
+const cookieParser = require("cookie-parser");
 
 const api = require("./api");
 
 const app = express();
 
+app.use(cors());
+app.use(bodyParser.json());
+app.use(
+  bodyParser.urlencoded({
+    extended: false
+  })
+);
+app.use(cookieParser());
+
 const { PORT = 9000 } = process.env;
+
+process.on("SIGINT", () => {
+  console.log("Bye bye!");
+  process.exit();
+});
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 

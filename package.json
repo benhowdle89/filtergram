@@ -7,18 +7,23 @@
     "node": "10.7.0"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
+    "cookie-parser": "^1.4.3",
+    "cors": "^2.8.5",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
+    "jsonwebtoken": "^8.4.0",
     "node-fetch": "^2.3.0",
     "pg": "^7.6.1",
     "puppeteer": "^1.10.0"
   },
   "scripts": {
     "client": "cd client && yarn start",
-    "server": "nodemon",
     "dev": "concurrently --names \"API,CLIENT\" --prefix-colors \"magenta,yellow\" --kill-others-on-fail \"yarn server\" \"yarn client\"",
-    "start": "node etc/db-structure.js && node index.js"
+    "start": "node etc/db-structure.js && node index.js",
+    "server": "nodemon"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"

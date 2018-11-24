@@ -5,7 +5,14 @@ const pool = new Pool({
   connectionString: connectionString
 });
 
-module.exports = async query => {
-  const { rows } = await pool.query(query);
+const shutdown = async () => {
+  await pool.end();
+};
+
+process.on("SIGTERM", shutdown);
+process.on("SIGINT", shutdown);
+
+module.exports = async (query, values) => {
+  const { rows } = await pool.query(query, values);
   return rows;
 };

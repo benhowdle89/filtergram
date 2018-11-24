@@ -12,6 +12,15 @@ const connectionString = process.env.DATABASE_URL;
     password text NOT NULL,
     created_at timestamp without time zone DEFAULT now()
     );`);
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS profiles (
+      id serial PRIMARY KEY,
+      username text NOT NULL,
+      filters jsonb,
+      created_at timestamp DEFAULT now(),
+      "user_id" integer REFERENCES users(id)
+    );
+    `);
   await client.end();
   process.exit(0);
 })();
