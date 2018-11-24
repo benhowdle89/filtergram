@@ -21,6 +21,7 @@
   },
   "scripts": {
     "client": "cd client && yarn start",
+    "heroku-postbuild": "cd client/ && npm install --only=dev && npm install && npm run build",
     "dev": "concurrently --names \"API,CLIENT\" --prefix-colors \"magenta,yellow\" --kill-others-on-fail \"yarn server\" \"yarn client\"",
     "start": "node etc/db-structure.js && node index.js",
     "server": "nodemon"
