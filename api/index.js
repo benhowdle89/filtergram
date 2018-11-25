@@ -17,6 +17,17 @@ const hashUserPassword = password => {
   return hashed;
 };
 
+const fetchInstagramProfilesForUsernames = async usernames => {
+  return Promise.all(
+    usernames.map(async u => {
+      return {
+        username: u.username,
+        media: await instagram.fetchInstagramProfile(u.username)
+      };
+    })
+  );
+};
+
 api.get(
   "/profiles/:userId",
   asyncMiddleware(async (req, res) => {
@@ -25,11 +36,21 @@ api.get(
     if (!profiles.length) {
       return res.json(profiles);
     }
-    const medias = await Promise.all(
-      profiles.map(async p => {
+    const medias = await fetchInstagramProfilesForUsernames(profiles);
+    return res.json(medias);
+  })
+);
+
+api.post(
+  "/profiles/:userId",
+  asyncMiddleware(async (req, res) => {
+    const { userId } = req.params;
+    const { usernames } = req.body;
+    await model.updateProfilesByUserId(userId, usernames);
+    const medias = await fetchInstagramProfilesForUsernames(
+      usernames.map(u => {
         return {
-          username: p.username,
-          media: await instagram.fetchInstagramProfile(p.username)
+          username: u
         };
       })
     );

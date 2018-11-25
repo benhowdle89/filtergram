@@ -4,9 +4,12 @@ import { withRouter } from "react-router-dom";
 
 import { fetchProfiles } from "./../modules/profiles";
 
+import { Nav } from "./../components/Nav";
+import { Feed } from "./../components/Feed";
+
 class Timeline extends Component {
   componentDidMount() {
-    this.props.fetchProfiles();
+    if (!this.props.profiles.usernamesById.length) this.props.fetchProfiles();
   }
   render() {
     const {
@@ -14,35 +17,11 @@ class Timeline extends Component {
     } = this.props;
     return (
       <div>
+        <Nav />
         {fetching && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
-        {!usernamesById.length && <p>Nothing to show</p>}
-        {usernamesById.map(u => {
-          const username = usernames[u];
-          return (
-            <div key={u}>
-              <h2>{u}</h2>
-              {username.media.map(media => {
-                return (
-                  <div key={media.instagram_url_id}>
-                    <img src={media.image_url} />
-                    <p>{media.caption}</p>
-                    <p>
-                      View on{" "}
-                      <a
-                        href={`https://instagram.com/p/${
-                          media.instagram_url_id
-                        }`}
-                      >
-                        Instagram
-                      </a>
-                    </p>
-                  </div>
-                );
-              })}
-            </div>
-          );
-        })}
+        {!usernamesById.length && !fetching && <p>Nothing to show</p>}
+        {<Feed usernames={usernames} usernamesById={usernamesById} />}
       </div>
     );
   }

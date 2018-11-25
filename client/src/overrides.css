@@ -1,0 +1,7 @@
+.react-tagsinput-input {
+  width: auto !important;
+}
+
+.react-tagsinput > span {
+  display: block;
+}

@@ -12,6 +12,18 @@ const getProfilesByUserId = async userId => {
   return query(`SELECT * FROM profiles WHERE user_id = $1`, [userId]);
 };
 
+const updateProfilesByUserId = async (userId, usernames) => {
+  await query(`DELETE FROM profiles WHERE user_id = $1`, [userId]);
+  return Promise.all(
+    usernames.map(username => {
+      return query(`INSERT INTO profiles(username, user_id) values($1, $2)`, [
+        username,
+        userId
+      ]);
+    })
+  );
+};
+
 const createUser = async (email, password) => {
   const inserted = await query(
     `INSERT INTO users(email, password) values($1, $2) RETURNING id`,
@@ -22,12 +34,9 @@ const createUser = async (email, password) => {
   return getUserById(insertId);
 };
 
-//insert
-// client.query('INSERT INTO items(text, complete) values($1, $2)',
-//     [data.text, data.complete]);
-
 module.exports = {
   getUserByEmail,
   createUser,
-  getProfilesByUserId
+  getProfilesByUserId,
+  updateProfilesByUserId
 };

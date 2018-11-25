@@ -7,12 +7,18 @@ import { save, load } from "redux-localstorage-simple";
 import reducers from "./../modules";
 
 import { initialState as initialAuthState } from "./../modules/auth";
+import { initialState as initialProfilesState } from "./../modules/profiles";
 
 const PRODUCTION = process.env.NODE_ENV === "production";
 
 const APP_LS_KEY = "filtergram";
 
-const storageStates = ["auth.user", "auth.token"];
+const storageStates = [
+  "auth.user",
+  "auth.token",
+  "profiles.usernames",
+  "profiles.usernamesById"
+];
 
 const configureStore = () => {
   const loggerMiddleware = createLogger();
@@ -39,7 +45,10 @@ const configureStore = () => {
     load({
       namespace: APP_LS_KEY,
       states: storageStates,
-      preloadedState: { auth: { ...initialAuthState } },
+      preloadedState: {
+        auth: { ...initialAuthState },
+        profiles: { ...initialProfilesState }
+      },
       disableWarnings: true
     }),
     enhancer
