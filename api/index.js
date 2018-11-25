@@ -49,13 +49,17 @@ api.post(
   asyncMiddleware(async (req, res) => {
     const { userId } = req.params;
     const { usernames } = req.body;
-    await model.updateProfilesByUserId(userId, usernames);
     const medias = await fetchInstagramProfilesForUsernames(
       usernames.map(u => {
         return {
           username: u
         };
       })
+    );
+    const validUsernames = medias.map(m => m.username);
+    await model.updateProfilesByUserId(
+      userId,
+      usernames.filter(u => validUsernames.includes(u))
     );
     return res.json(medias);
   })
