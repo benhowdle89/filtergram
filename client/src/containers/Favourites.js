@@ -34,16 +34,20 @@ class Favourites extends Component {
         {fetching && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         {!favourites.length && !fetching && <p>No favourites</p>}
-        {favourites.map(f => {
-          return (
-            <FeedItem
-              key={f.instagram_url_id}
-              media={f.data}
-              handleAddFavourites={this.handleAddFavourites}
-              handleRemoveFavourites={this.handleRemoveFavourites}
-            />
-          );
-        })}
+        {favourites
+          .sort((a, b) => {
+            return +new Date(b.created_at) - +new Date(a.created_at);
+          })
+          .map(f => {
+            return (
+              <FeedItem
+                key={f.instagram_url_id}
+                media={f.data}
+                handleAddFavourites={this.handleAddFavourites}
+                handleRemoveFavourites={this.handleRemoveFavourites}
+              />
+            );
+          })}
       </div>
     );
   }

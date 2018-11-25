@@ -1,6 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
+import { Carousel } from "react-responsive-carousel";
+
+import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Item = styled.div`
   display: flex;
@@ -23,9 +26,24 @@ class FeedItem extends React.Component {
     return (
       <Item key={media.instagram_url_id}>
         <FeedItemImage>
-          <img src={media.image_url} />
+          {media.type === "GraphImage" && <img src={media.image_url} />}
+          {media.type === "GraphSidecar" && (
+            <Carousel showArrows={true}>
+              {media.extraMedia.map(e => {
+                return (
+                  <div key={e}>
+                    <img src={e} />
+                  </div>
+                );
+              })}
+            </Carousel>
+          )}
+          {media.type === "GraphVideo" && (
+            <video controls src={media.extraMedia} />
+          )}
         </FeedItemImage>
         <FeedItemsDetails>
+          <p>@{media.username}</p>
           <p>{media.caption}</p>
           <p>
             View on{" "}
