@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 import { logout } from "./../modules/auth";
-import { isThisISOWeek } from "date-fns";
 
 const NavLink = styled(Link)`
   margin-right: 12px;
@@ -26,6 +25,7 @@ class Nav extends React.Component {
       <div>
         {loggedIn && <NavLink to="/">Feed</NavLink>}
         {loggedIn && <NavLink to="/profiles">Manage usernames</NavLink>}
+        {loggedIn && <NavLink to="/favourites">Favourites</NavLink>}
         {!loggedIn && <NavLink to="/login">Login</NavLink>}
         {!loggedIn && <NavLink to="/sign-up">Sign up</NavLink>}
         {loggedIn && <p onClick={this.handleLogout}>Logout</p>}

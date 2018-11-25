@@ -65,6 +65,36 @@ api.post(
   })
 );
 
+api.get(
+  "/favourites/:userId",
+  asyncMiddleware(async (req, res) => {
+    const { userId } = req.params;
+    const favourites = await model.getFavouritesByUserId(userId);
+    return res.json(favourites);
+  })
+);
+
+api.post(
+  "/favourites/:userId",
+  asyncMiddleware(async (req, res) => {
+    const { item } = req.body;
+    const { userId } = req.params;
+    const favourite = await model.addFavouriteForUser(userId, item);
+    return res.json(favourite);
+  })
+);
+
+api.delete(
+  "/favourites/:userId/:instagramUrlId",
+  asyncMiddleware(async (req, res) => {
+    const { userId, instagramUrlId } = req.params;
+    await model.removeFavouritesForUser(userId, instagramUrlId);
+    return res.json({
+      instagram_url_id: instagramUrlId
+    });
+  })
+);
+
 api.post(
   "/users/login",
   asyncMiddleware(async (req, res) => {
@@ -122,14 +152,6 @@ api.post(
         id: user.id
       })
     });
-  })
-);
-
-api.get(
-  "/users",
-  asyncMiddleware(async (req, res) => {
-    const result = await model.getUsers();
-    return res.json(result);
   })
 );
 

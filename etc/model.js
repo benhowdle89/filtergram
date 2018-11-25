@@ -12,6 +12,10 @@ const getProfilesByUserId = async userId => {
   return query(`SELECT * FROM profiles WHERE user_id = $1`, [userId]);
 };
 
+const getFavouritesByUserId = async userId => {
+  return query(`SELECT * FROM favourites WHERE user_id = $1`, [userId]);
+};
+
 const updateProfilesByUserId = async (userId, usernames) => {
   await query(`DELETE FROM profiles WHERE user_id = $1`, [userId]);
   return Promise.all(
@@ -21,6 +25,24 @@ const updateProfilesByUserId = async (userId, usernames) => {
         userId
       ]);
     })
+  );
+};
+
+const addFavouriteForUser = async (userId, item) => {
+  const { instagram_url_id } = item;
+  const inserted = await query(
+    `INSERT INTO favourites(instagram_url_id, data, user_id) values($1, $2, $3) ON CONFLICT DO NOTHING RETURNING id`,
+    [instagram_url_id, JSON.stringify(item), userId]
+  );
+  if (!inserted.length) return [];
+  const insertId = inserted[0].id;
+  return query(`SELECT * FROM favourites WHERE id = $1`, [insertId]);
+};
+
+const removeFavouritesForUser = async (userId, instagramUrlId) => {
+  return query(
+    `DELETE FROM favourites WHERE user_id = $1 AND instagram_url_id = $2`,
+    [userId, instagramUrlId]
   );
 };
 
@@ -38,5 +60,8 @@ module.exports = {
   getUserByEmail,
   createUser,
   getProfilesByUserId,
-  updateProfilesByUserId
+  updateProfilesByUserId,
+  addFavouriteForUser,
+  getFavouritesByUserId,
+  removeFavouritesForUser
 };

@@ -11,6 +11,7 @@ import Profiles from "../containers/Profiles";
 //LOGIN
 import Login from "../containers/Login";
 import SignUp from "../containers/SignUp";
+import Favourites from "../containers/Favourites";
 
 const GlobalStyle = createGlobalStyle`
   img {
@@ -46,6 +47,12 @@ class App extends Component {
             exact
             path="/profiles"
             render={props => <Profiles {...props} />}
+          />
+
+          <Route
+            exact
+            path="/favourites"
+            render={props => <Favourites {...props} />}
           />
 
           {/* <Route component={NotFound} /> */}

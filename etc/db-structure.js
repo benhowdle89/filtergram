@@ -21,6 +21,18 @@ const connectionString = process.env.DATABASE_URL;
       "user_id" integer REFERENCES users(id)
     );
     `);
+  await client.query(`
+    CREATE TABLE IF NOT EXISTS favourites (
+      "id" serial,
+      "instagram_url_id" text NOT NULL,
+      "data" jsonb NOT NULL,
+      "created_at" timestamp DEFAULT now(),
+      "user_id" integer,
+      PRIMARY KEY ("id"),
+      FOREIGN KEY ("user_id") REFERENCES users(id)
+  );
+  
+    `);
   await client.end();
   process.exit(0);
 })();

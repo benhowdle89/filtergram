@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
 import { fetchProfiles } from "./../modules/profiles";
+import { addFavourites, removeFavourites } from "./../modules/favourites";
 
 import Nav from "./../components/Nav";
 import { Feed } from "./../components/Feed";
@@ -13,7 +14,8 @@ class Timeline extends Component {
   }
   render() {
     const {
-      profiles: { fetching, error, usernames, usernamesById }
+      profiles: { fetching, error, usernames, usernamesById },
+      addFavourites
     } = this.props;
     return (
       <div>
@@ -21,7 +23,14 @@ class Timeline extends Component {
         {fetching && <p>Loading...</p>}
         {error && <p>Error: {error}</p>}
         {!usernamesById.length && !fetching && <p>Nothing to show</p>}
-        {<Feed usernames={usernames} usernamesById={usernamesById} />}
+        {
+          <Feed
+            usernames={usernames}
+            usernamesById={usernamesById}
+            addFavourites={addFavourites}
+            removeFavourites={removeFavourites}
+          />
+        }
       </div>
     );
   }
@@ -32,7 +41,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  fetchProfiles
+  fetchProfiles,
+  addFavourites
 };
 
 export default withRouter(

@@ -1,15 +1,6 @@
 import React from "react";
-import styled from "styled-components";
 
-const FeedItem = styled.div`
-  display: flex;
-`;
-const FeedItemImage = styled.div`
-  width: calc(100% * 2 / 3);
-`;
-const FeedItemsDetails = styled.div`
-  width: calc(100% * 1 / 3);
-`;
+import FeedItem from "./FeedItem";
 
 const flatten = list =>
   list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
@@ -36,26 +27,26 @@ export class Feed extends React.Component {
     }, []);
     return this.sortFeed(flatten(list));
   }
+  handleAddFavourites = media => {
+    const { addFavourites } = this.props;
+    addFavourites(media);
+  };
+  handleRemoveFavourites = instagram_url_id => {
+    const { removeFavourites } = this.props;
+    removeFavourites(instagram_url_id);
+  };
   render() {
     const feed = this.feedDisplay();
     return (
       <div>
         {feed.map(media => {
           return (
-            <FeedItem key={media.instagram_url_id}>
-              <FeedItemImage>
-                <img src={media.image_url} />
-              </FeedItemImage>
-              <FeedItemsDetails>
-                <p>{media.caption}</p>
-                <p>
-                  View on{" "}
-                  <a href={`https://instagram.com/p/${media.instagram_url_id}`}>
-                    Instagram
-                  </a>
-                </p>
-              </FeedItemsDetails>
-            </FeedItem>
+            <FeedItem
+              key={media.instagram_url_id}
+              handleAddFavourites={this.handleAddFavourites}
+              handleRemoveFavourites={this.handleRemoveFavourites}
+              media={media}
+            />
           );
         })}
       </div>
