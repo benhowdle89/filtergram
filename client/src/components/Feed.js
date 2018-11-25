@@ -11,39 +11,52 @@ const FeedItemsDetails = styled.div`
   width: 50%;
 `;
 
+const flatten = list =>
+  list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
+
 export class Feed extends React.Component {
-  render() {
+  sortFeed = list => {
+    return list.sort((a, b) => {
+      return b.timestamp - a.timestamp;
+    });
+  };
+  feedDisplay() {
     const { usernames, usernamesById } = this.props;
+    const list = usernamesById.reduce((list, username) => {
+      const usernameObj = usernames[username];
+      usernameObj.username = username;
+      return [
+        ...list,
+        usernameObj.map(u => {
+          return {
+            ...u,
+            username
+          };
+        })
+      ];
+    }, []);
+    return this.sortFeed(flatten(list));
+  }
+  render() {
+    const feed = this.feedDisplay();
     return (
       <div>
-        {usernamesById.map(u => {
-          const username = usernames[u];
+        {feed.map(media => {
           return (
-            <div key={u}>
-              <h2>{u}</h2>
-              {username.media.map(media => {
-                return (
-                  <FeedItem key={media.instagram_url_id}>
-                    <FeedItemImage>
-                      <img src={media.image_url} />
-                    </FeedItemImage>
-                    <FeedItemsDetails>
-                      <p>{media.caption}</p>
-                      <p>
-                        View on{" "}
-                        <a
-                          href={`https://instagram.com/p/${
-                            media.instagram_url_id
-                          }`}
-                        >
-                          Instagram
-                        </a>
-                      </p>
-                    </FeedItemsDetails>
-                  </FeedItem>
-                );
-              })}
-            </div>
+            <FeedItem key={media.instagram_url_id}>
+              <FeedItemImage>
+                <img src={media.image_url} />
+              </FeedItemImage>
+              <FeedItemsDetails>
+                <p>{media.caption}</p>
+                <p>
+                  View on{" "}
+                  <a href={`https://instagram.com/p/${media.instagram_url_id}`}>
+                    Instagram
+                  </a>
+                </p>
+              </FeedItemsDetails>
+            </FeedItem>
           );
         })}
       </div>

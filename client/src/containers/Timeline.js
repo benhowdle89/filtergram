@@ -4,7 +4,7 @@ import { withRouter } from "react-router-dom";
 
 import { fetchProfiles } from "./../modules/profiles";
 
-import { Nav } from "./../components/Nav";
+import Nav from "./../components/Nav";
 import { Feed } from "./../components/Feed";
 
 class Timeline extends Component {

@@ -6,7 +6,7 @@ import TagsInput from "react-tagsinput";
 
 import "react-tagsinput/react-tagsinput.css";
 
-import { Nav } from "./../components/Nav";
+import Nav from "./../components/Nav";
 
 import { fetchProfiles, editProfiles } from "./../modules/profiles";
 

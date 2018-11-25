@@ -4,12 +4,14 @@ import { withRouter } from "react-router-dom";
 
 import { loginUsernamePassword } from "./../modules/auth";
 
+import Nav from "./../components/Nav";
+
 class Login extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "benhowdle89@gmail.com",
-      password: "123"
+      email: "",
+      password: ""
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -23,6 +25,7 @@ class Login extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <form
           onSubmit={e => {
             e.preventDefault();

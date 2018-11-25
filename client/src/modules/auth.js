@@ -103,6 +103,12 @@ export default function auth(state = initialState, action) {
   }
 }
 
+export function logout() {
+  return {
+    type: types.LOGOUT
+  };
+}
+
 export function loginUsernamePassword(email, password) {
   return async dispatch => {
     dispatch(loginUsernamePasswordRequest());

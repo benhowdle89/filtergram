@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 
 import { signUp } from "./../modules/auth";
 
+import Nav from "./../components/Nav";
+
 class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      email: "benhowdle89@gmail.com",
-      password: "123"
+      email: "",
+      password: ""
     };
   }
   handleSubmit = () => {
@@ -17,6 +19,7 @@ class SignUp extends Component {
   render() {
     return (
       <div>
+        <Nav />
         <form
           onSubmit={e => {
             e.preventDefault();

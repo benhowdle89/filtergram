@@ -26,9 +26,7 @@ export default function profiles(state = initialState, action) {
       const { data: fetchProfilesData } = action;
       let usernames = {};
       fetchProfilesData.forEach(p => {
-        usernames[p.username] = {
-          media: p.media
-        };
+        usernames[p.username] = [...p.media];
       });
       return {
         ...state,
@@ -37,6 +35,8 @@ export default function profiles(state = initialState, action) {
         fetching: false,
         error: null
       };
+    case types.LOGOUT:
+      return initialState;
     default:
       return state;
   }

@@ -1,18 +1,50 @@
 import React from "react";
+import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
+
+import { logout } from "./../modules/auth";
+import { isThisISOWeek } from "date-fns";
 
 const NavLink = styled(Link)`
   margin-right: 12px;
 `;
 
-export class Nav extends React.Component {
+class Nav extends React.Component {
+  handleLogout = () => {
+    const { logout, history } = this.props;
+    logout();
+    history.push("/login");
+  };
   render() {
+    const {
+      auth: { token }
+    } = this.props;
+    const loggedIn = !!token;
     return (
       <div>
-        <NavLink to="/">Feed</NavLink>
-        <NavLink to="/profiles">Manage usernames</NavLink>
+        {loggedIn && <NavLink to="/">Feed</NavLink>}
+        {loggedIn && <NavLink to="/profiles">Manage usernames</NavLink>}
+        {!loggedIn && <NavLink to="/login">Login</NavLink>}
+        {!loggedIn && <NavLink to="/sign-up">Sign up</NavLink>}
+        {loggedIn && <p onClick={this.handleLogout}>Logout</p>}
       </div>
     );
   }
 }
+
+const mapStateToProps = state => ({
+  auth: state.auth
+});
+
+const mapDispatchToProps = {
+  logout
+};
+
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(Nav)
+);
