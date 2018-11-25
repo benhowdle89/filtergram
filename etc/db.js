@@ -7,6 +7,7 @@ const pool = new Pool({
 
 const shutdown = async () => {
   await pool.end();
+  process.exit(0);
 };
 
 process.on("SIGTERM", shutdown);

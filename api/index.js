@@ -18,14 +18,17 @@ const hashUserPassword = password => {
 };
 
 const fetchInstagramProfilesForUsernames = async usernames => {
-  return Promise.all(
+  const items = await Promise.all(
     usernames.map(async u => {
+      const media = await instagram.fetchInstagramProfile(u.username);
+      if (!media.length) return null;
       return {
-        username: u.username,
-        media: await instagram.fetchInstagramProfile(u.username)
+        media,
+        username: u.username
       };
     })
   );
+  return items.filter(Boolean);
 };
 
 api.get(

@@ -19,12 +19,7 @@ app.use(
 );
 app.use(cookieParser());
 
-const { PORT = 9000 } = process.env;
-
-process.on("SIGINT", () => {
-  console.log("Bye bye!");
-  process.exit();
-});
+const { PORT = 5000 } = process.env;
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 

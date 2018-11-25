@@ -24,7 +24,6 @@ export class Feed extends React.Component {
     const { usernames, usernamesById } = this.props;
     const list = usernamesById.reduce((list, username) => {
       const usernameObj = usernames[username];
-      usernameObj.username = username;
       return [
         ...list,
         usernameObj.map(u => {

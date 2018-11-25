@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
+import { withRouter } from "react-router-dom";
 
 import { signUp } from "./../modules/auth";
 
@@ -12,6 +13,11 @@ class SignUp extends Component {
       email: "",
       password: ""
     };
+  }
+  componentDidUpdate(prevProps, prevState) {
+    if (!prevProps.auth.token && this.props.auth.token) {
+      this.props.history.push("/");
+    }
   }
   handleSubmit = () => {
     this.props.signUp(this.state.email, this.state.password);
@@ -51,7 +57,9 @@ const mapDispatchToProps = {
   signUp
 };
 
-export default connect(
-  mapStateToProps,
-  mapDispatchToProps
-)(SignUp);
+export default withRouter(
+  connect(
+    mapStateToProps,
+    mapDispatchToProps
+  )(SignUp)
+);
