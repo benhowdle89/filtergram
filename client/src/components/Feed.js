@@ -5,10 +5,10 @@ const FeedItem = styled.div`
   display: flex;
 `;
 const FeedItemImage = styled.div`
-  width: 50%;
+  width: calc(100% * 2 / 3);
 `;
 const FeedItemsDetails = styled.div`
-  width: 50%;
+  width: calc(100% * 1 / 3);
 `;
 
 const flatten = list =>
