@@ -13,9 +13,9 @@ instance.interceptors.request.use(config => {
   const headers = {
     ...config.headers
   };
-  const { securityToken } = store.getState().auth;
-  if (securityToken) {
-    headers.Authorization = `Bearer ${securityToken}`;
+  const { token } = store.getState().auth;
+  if (token) {
+    headers.Authorization = `Bearer ${token}`;
   }
   return {
     ...config,

@@ -353,6 +353,10 @@ execa@^0.10.0:
     signal-exit "^3.0.0"
     strip-eof "^1.0.0"
 
+express-bearer-token@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/express-bearer-token/-/express-bearer-token-2.2.0.tgz#9e01bbb8a29791f1dc317e168543acac76bc989f"
+
 express@^4.16.4:
   version "4.16.4"
   resolved "https://registry.yarnpkg.com/express/-/express-4.16.4.tgz#fddef61926109e24c515ea97fd2f1bdbf62df12e"

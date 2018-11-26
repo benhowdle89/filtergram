@@ -5,6 +5,7 @@ const cors = require("cors");
 const path = require("path");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const bearerToken = require("express-bearer-token");
 
 const api = require("./api");
 
@@ -18,6 +19,7 @@ app.use(
   })
 );
 app.use(cookieParser());
+app.use(bearerToken());
 
 const { PORT = 5000 } = process.env;
 

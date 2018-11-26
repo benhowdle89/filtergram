@@ -17,6 +17,12 @@ const hashUserPassword = password => {
   return hashed;
 };
 
+const requireSession = async req => {
+  const { token } = req;
+  if (!token) return null;
+  return auth.fetch(token);
+};
+
 const fetchInstagramProfilesForUsernames = async usernames => {
   const items = await Promise.all(
     usernames.map(async u => {
@@ -34,7 +40,12 @@ const fetchInstagramProfilesForUsernames = async usernames => {
 api.get(
   "/profiles/:userId",
   asyncMiddleware(async (req, res) => {
+    const session = await requireSession(req);
+    if (!session) {
+      return res.sendStatus(401);
+    }
     const { userId } = req.params;
+    if (session.id !== userId) return res.sendStatus(403);
     const profiles = await model.getProfilesByUserId(userId);
     if (!profiles.length) {
       return res.json(profiles);
@@ -47,7 +58,12 @@ api.get(
 api.post(
   "/profiles/:userId",
   asyncMiddleware(async (req, res) => {
+    const session = await requireSession(req);
+    if (!session) {
+      return res.sendStatus(401);
+    }
     const { userId } = req.params;
+    if (session.id !== userId) return res.sendStatus(403);
     const { usernames } = req.body;
     const medias = await fetchInstagramProfilesForUsernames(
       usernames.map(u => {
@@ -68,7 +84,12 @@ api.post(
 api.get(
   "/favourites/:userId",
   asyncMiddleware(async (req, res) => {
+    const session = await requireSession(req);
+    if (!session) {
+      return res.sendStatus(401);
+    }
     const { userId } = req.params;
+    if (session.id !== userId) return res.sendStatus(403);
     const favourites = await model.getFavouritesByUserId(userId);
     return res.json(favourites);
   })
@@ -77,8 +98,13 @@ api.get(
 api.post(
   "/favourites/:userId",
   asyncMiddleware(async (req, res) => {
+    const session = await requireSession(req);
+    if (!session) {
+      return res.sendStatus(401);
+    }
     const { item } = req.body;
     const { userId } = req.params;
+    if (session.id !== userId) return res.sendStatus(403);
     const favourite = await model.addFavouriteForUser(userId, item);
     return res.json(favourite);
   })
@@ -87,7 +113,12 @@ api.post(
 api.delete(
   "/favourites/:userId/:instagramUrlId",
   asyncMiddleware(async (req, res) => {
+    const session = await requireSession(req);
+    if (!session) {
+      return res.sendStatus(401);
+    }
     const { userId, instagramUrlId } = req.params;
+    if (session.id !== userId) return res.sendStatus(403);
     await model.removeFavouritesForUser(userId, instagramUrlId);
     return res.json({
       instagram_url_id: instagramUrlId
