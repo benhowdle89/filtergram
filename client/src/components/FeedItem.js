@@ -11,12 +11,22 @@ const Item = styled.div`
   margin-bottom: 2rem;
   border-bottom: 1px solid #ccc;
   padding-bottom: 2rem;
+  @media (max-width: 700px) {
+    flex-direction: column;
+  }
 `;
 const FeedItemImage = styled.div`
   width: calc(100% * 2 / 3);
+  @media (max-width: 700px) {
+    width: auto;
+    padding: 0 24px;
+  }
 `;
 const FeedItemsDetails = styled.div`
   width: calc(100% * 1 / 3);
+  @media (max-width: 700px) {
+    width: auto;
+  }
   padding: 0 24px;
 `;
 

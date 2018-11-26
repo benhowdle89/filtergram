@@ -31,8 +31,8 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: inherit;
   }
-  img {
-    max-width: 100%
+  img, video {
+    max-width: 100%;
   }
 `;
 
