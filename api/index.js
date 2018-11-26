@@ -45,7 +45,7 @@ api.get(
       return res.sendStatus(401);
     }
     const { userId } = req.params;
-    if (session.id !== userId) return res.sendStatus(403);
+    if (session.id != userId) return res.sendStatus(403);
     const profiles = await model.getProfilesByUserId(userId);
     if (!profiles.length) {
       return res.json(profiles);
@@ -63,7 +63,7 @@ api.post(
       return res.sendStatus(401);
     }
     const { userId } = req.params;
-    if (session.id !== userId) return res.sendStatus(403);
+    if (session.id != userId) return res.sendStatus(403);
     const { usernames } = req.body;
     const medias = await fetchInstagramProfilesForUsernames(
       usernames.map(u => {
@@ -89,7 +89,7 @@ api.get(
       return res.sendStatus(401);
     }
     const { userId } = req.params;
-    if (session.id !== userId) return res.sendStatus(403);
+    if (session.id != userId) return res.sendStatus(403);
     const favourites = await model.getFavouritesByUserId(userId);
     return res.json(favourites);
   })
@@ -104,7 +104,8 @@ api.post(
     }
     const { item } = req.body;
     const { userId } = req.params;
-    if (session.id !== userId) return res.sendStatus(403);
+    console.log(session, userId);
+    if (session.id != userId) return res.sendStatus(403);
     const favourite = await model.addFavouriteForUser(userId, item);
     return res.json(favourite);
   })
@@ -118,7 +119,7 @@ api.delete(
       return res.sendStatus(401);
     }
     const { userId, instagramUrlId } = req.params;
-    if (session.id !== userId) return res.sendStatus(403);
+    if (session.id != userId) return res.sendStatus(403);
     await model.removeFavouritesForUser(userId, instagramUrlId);
     return res.json({
       instagram_url_id: instagramUrlId

@@ -79,7 +79,7 @@ class Profiles extends Component {
               size: tagPlaceholder.length
             }}
           />
-          <input type="submit" />
+          <input disabled={fetching} type="submit" />
         </form>
       </div>
     );

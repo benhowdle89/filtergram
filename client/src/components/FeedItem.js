@@ -21,7 +21,10 @@ class FeedItem extends React.Component {
     return favourites.map(f => f.instagram_url_id).includes(id);
   };
   render() {
-    const { media } = this.props;
+    const {
+      media,
+      favourites: { fetching }
+    } = this.props;
     const inFavourites = this.isInFavourites(media.instagram_url_id);
     return (
       <Item key={media.instagram_url_id}>
@@ -57,6 +60,7 @@ class FeedItem extends React.Component {
                 ? this.props.handleAddFavourites(media)
                 : this.props.handleRemoveFavourites(media.instagram_url_id);
             }}
+            disabled={fetching}
           >
             {inFavourites ? "Remove from" : "Add to"} Favourites
           </button>
