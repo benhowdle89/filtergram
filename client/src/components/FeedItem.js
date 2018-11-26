@@ -51,15 +51,15 @@ class FeedItem extends React.Component {
               Instagram
             </a>
           </p>
-          <p
-            onClick={() =>
+          <button
+            onClick={() => {
               !inFavourites
                 ? this.props.handleAddFavourites(media)
-                : this.props.handleRemoveFavourites(media.instagram_url_id)
-            }
+                : this.props.handleRemoveFavourites(media.instagram_url_id);
+            }}
           >
             {inFavourites ? "Remove from" : "Add to"} Favourites
-          </p>
+          </button>
         </FeedItemsDetails>
       </Item>
     );
