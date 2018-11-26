@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
+import linkify from "linkify-instagram";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -32,6 +33,7 @@ class FeedItem extends React.Component {
       favourites: { fetching }
     } = this.props;
     const inFavourites = this.isInFavourites(media.instagram_url_id);
+    const username = `@${media.username}`;
     return (
       <Item key={media.instagram_url_id}>
         <FeedItemImage>
@@ -52,9 +54,9 @@ class FeedItem extends React.Component {
           )}
         </FeedItemImage>
         <FeedItemsDetails>
-          <p>@{media.username}</p>
+          <p dangerouslySetInnerHTML={{ __html: linkify(username) }} />
           <UserProfilePic src={media.user_profile_pic} />
-          <p>{media.caption}</p>
+          <p dangerouslySetInnerHTML={{ __html: linkify(media.caption) }} />
           <p>
             View on{" "}
             <a href={`https://instagram.com/p/${media.instagram_url_id}`}>

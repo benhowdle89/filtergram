@@ -5000,6 +5000,10 @@ levn@^0.3.0, levn@~0.3.0:
     prelude-ls "~1.1.2"
     type-check "~0.3.2"
 
+linkify-instagram@^0.6.2:
+  version "0.6.2"
+  resolved "https://registry.yarnpkg.com/linkify-instagram/-/linkify-instagram-0.6.2.tgz#e5031466e47b3c13ee608c281c08cca41d3df4b1"
+
 load-json-file@^1.0.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/load-json-file/-/load-json-file-1.1.0.tgz#956905708d58b4bab4c2261b04f59f31c99374c0"
