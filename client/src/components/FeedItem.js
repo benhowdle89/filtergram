@@ -56,7 +56,14 @@ class FeedItem extends React.Component {
         <FeedItemsDetails>
           <p dangerouslySetInnerHTML={{ __html: linkify(username) }} />
           <UserProfilePic src={media.user_profile_pic} />
-          <p dangerouslySetInnerHTML={{ __html: linkify(media.caption) }} />
+          <p
+            dangerouslySetInnerHTML={{
+              __html: linkify(media.caption).replace(
+                /(?:\r\n|\r|\n)/g,
+                "<br />"
+              )
+            }}
+          />
           <p>
             View on{" "}
             <a href={`https://instagram.com/p/${media.instagram_url_id}`}>
