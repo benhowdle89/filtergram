@@ -7,6 +7,7 @@ import "./../overrides.css";
 
 import Timeline from "../containers/Timeline";
 import Profiles from "../containers/Profiles";
+import Homepage from "../containers/Homepage";
 
 //LOGIN
 import Login from "../containers/Login";
@@ -30,13 +31,8 @@ class App extends Component {
       <AppElement>
         <GlobalStyle />
         <Switch>
-          <Route
-            path="/"
-            exact
-            render={props =>
-              token ? <Timeline {...props} /> : <Redirect to="/login" />
-            }
-          />
+          <Route path="/" exact render={props => <Homepage {...props} />} />
+          <Route path="/feed" exact render={props => <Timeline {...props} />} />
           <Route exact path="/login" render={props => <Login {...props} />} />
           <Route
             exact

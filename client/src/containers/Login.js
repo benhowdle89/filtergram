@@ -16,7 +16,7 @@ class Login extends Component {
   }
   componentDidUpdate(prevProps, prevState) {
     if (!prevProps.auth.token && this.props.auth.token) {
-      this.props.history.push("/");
+      this.props.history.push("/feed");
     }
   }
   handleSubmit = () => {

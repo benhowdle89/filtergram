@@ -14,7 +14,7 @@ class Nav extends React.Component {
   handleLogout = () => {
     const { logout, history } = this.props;
     logout();
-    history.push("/login");
+    history.push("/");
   };
   render() {
     const {
@@ -23,7 +23,8 @@ class Nav extends React.Component {
     const loggedIn = !!token;
     return (
       <div>
-        {loggedIn && <NavLink to="/">Feed</NavLink>}
+        {!loggedIn && <NavLink to="/">Home</NavLink>}
+        {loggedIn && <NavLink to="/feed">Feed</NavLink>}
         {loggedIn && <NavLink to="/profiles">Manage usernames</NavLink>}
         {loggedIn && <NavLink to="/favourites">Favourites</NavLink>}
         {!loggedIn && <NavLink to="/login">Login</NavLink>}
