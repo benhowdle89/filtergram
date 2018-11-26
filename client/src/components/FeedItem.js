@@ -15,6 +15,12 @@ const FeedItemsDetails = styled.div`
   width: calc(100% * 1 / 3);
 `;
 
+const UserProfilePic = styled.img`
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+`;
+
 class FeedItem extends React.Component {
   isInFavourites = id => {
     const { favourites } = this.props.favourites;
@@ -47,6 +53,7 @@ class FeedItem extends React.Component {
         </FeedItemImage>
         <FeedItemsDetails>
           <p>@{media.username}</p>
+          <UserProfilePic src={media.user_profile_pic} />
           <p>{media.caption}</p>
           <p>
             View on{" "}

@@ -8,6 +8,7 @@ import reducers from "./../modules";
 
 import { initialState as initialAuthState } from "./../modules/auth";
 import { initialState as initialProfilesState } from "./../modules/profiles";
+import { initialState as initialFavouritesState } from "./../modules/favourites";
 
 const PRODUCTION = process.env.NODE_ENV === "production";
 
@@ -17,7 +18,8 @@ const storageStates = [
   "auth.user",
   "auth.token",
   "profiles.usernames",
-  "profiles.usernamesById"
+  "profiles.usernamesById",
+  "favourites.favourites"
 ];
 
 const configureStore = () => {
@@ -47,7 +49,8 @@ const configureStore = () => {
       states: storageStates,
       preloadedState: {
         auth: { ...initialAuthState },
-        profiles: { ...initialProfilesState }
+        profiles: { ...initialProfilesState },
+        favourites: { ...initialFavouritesState }
       },
       disableWarnings: true
     }),

@@ -41,7 +41,7 @@ class Profiles extends Component {
         history
       } = this.props;
       if (!error) {
-        history.push("/");
+        history.push("/feed");
       }
     });
   };
