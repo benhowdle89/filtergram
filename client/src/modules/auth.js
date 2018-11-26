@@ -116,7 +116,7 @@ export function loginUsernamePassword(email, password) {
       const { data } = await api.loginUsernamePassword(email, password);
       dispatch(loginUsernamePasswordSuccess(data));
     } catch (error) {
-      const message = "Wrong information";
+      const message = "User not found";
       dispatch(loginUsernamePasswordFailure(message));
     }
   };
@@ -149,7 +149,7 @@ export function signUp(email, password) {
       const { data } = await api.signUp(email, password);
       dispatch(signUpSuccess(data));
     } catch (error) {
-      const message = "Wrong information";
+      const message = "User already exists";
       dispatch(signUpFailure(message));
     }
   };
