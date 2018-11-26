@@ -35,6 +35,7 @@ class Timeline extends Component {
             usernamesById={usernamesById}
             addFavourites={addFavourites}
             removeFavourites={removeFavourites}
+            refresh={this.props.fetchProfiles}
           />
         }
       </div>

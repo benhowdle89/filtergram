@@ -39,6 +39,7 @@ export class Feed extends React.Component {
     const feed = this.feedDisplay();
     return (
       <div>
+        <button onClick={this.props.refresh}>Refresh</button>
         {feed.map(media => {
           return (
             <FeedItem
