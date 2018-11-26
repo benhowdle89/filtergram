@@ -1,6 +1,12 @@
 import React from "react";
+import styled from "styled-components";
 
 import FeedItem from "./FeedItem";
+
+const Container = styled.div`
+  max-width: 935px;
+  margin: auto;
+`;
 
 const flatten = list =>
   list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
@@ -38,7 +44,7 @@ export class Feed extends React.Component {
   render() {
     const feed = this.feedDisplay();
     return (
-      <div>
+      <Container>
         <button onClick={this.props.refresh}>Refresh</button>
         {feed.map(media => {
           return (
@@ -50,7 +56,7 @@ export class Feed extends React.Component {
             />
           );
         })}
-      </div>
+      </Container>
     );
   }
 }

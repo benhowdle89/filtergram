@@ -8,12 +8,16 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 const Item = styled.div`
   display: flex;
+  margin-bottom: 2rem;
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2rem;
 `;
 const FeedItemImage = styled.div`
   width: calc(100% * 2 / 3);
 `;
 const FeedItemsDetails = styled.div`
   width: calc(100% * 1 / 3);
+  padding: 0 24px;
 `;
 
 const UserProfilePic = styled.img`

@@ -15,6 +15,22 @@ import SignUp from "../containers/SignUp";
 import Favourites from "../containers/Favourites";
 
 const GlobalStyle = createGlobalStyle`
+  html{
+    font-size:16px
+  }
+  body{
+    background:#fff;
+    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
+    text-rendering:optimizeLegibility;
+    -webkit-font-smoothing:antialiased;
+    color:#222;
+    font-size:1rem;
+    line-height:1.6;
+    overflow:auto
+  }
+  a {
+    color: inherit;
+  }
   img {
     max-width: 100%
   }
