@@ -131,7 +131,9 @@ api.post(
   "/users/login",
   asyncMiddleware(async (req, res) => {
     let { email, password } = req.body;
-    email = email.toLowerCase();
+
+    email = email.toLowerCase().trim();
+    password = password.trim();
     const users = await model.getUserByEmail(email);
     if (!users.length) {
       return res.sendStatus(404);
@@ -157,7 +159,8 @@ api.post(
   "/users",
   asyncMiddleware(async (req, res) => {
     let { email, password } = req.body;
-    email = email.toLowerCase();
+    email = email.toLowerCase().trim();
+    password = password.trim();
     const users = await model.getUserByEmail(email);
     if (users.length) {
       return res.sendStatus(400);
