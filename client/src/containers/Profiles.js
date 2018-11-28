@@ -8,6 +8,8 @@ import "react-tagsinput/react-tagsinput.css";
 
 import Nav from "./../components/Nav";
 
+import { Container } from "./../components/common.styles";
+
 import { fetchProfiles, editProfiles } from "./../modules/profiles";
 
 class Profiles extends Component {
@@ -62,25 +64,27 @@ class Profiles extends Component {
     return (
       <div>
         <Nav />
-        {fetching && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
-        {!usernamesById.length && !fetching && <p>Nothing to show</p>}
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            this.handleSubmit();
-          }}
-        >
-          <TagsInput
-            value={this.getTags()}
-            onChange={this.handleChange}
-            inputProps={{
-              placeholder: tagPlaceholder,
-              size: tagPlaceholder.length
+        <Container>
+          {fetching && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
+          {!usernamesById.length && !fetching && <p>Nothing to show</p>}
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              this.handleSubmit();
             }}
-          />
-          <input disabled={fetching} type="submit" />
-        </form>
+          >
+            <TagsInput
+              value={this.getTags()}
+              onChange={this.handleChange}
+              inputProps={{
+                placeholder: tagPlaceholder,
+                size: tagPlaceholder.length
+              }}
+            />
+            <input disabled={fetching} type="submit" />
+          </form>
+        </Container>
       </div>
     );
   }

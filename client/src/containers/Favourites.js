@@ -4,6 +4,8 @@ import { withRouter } from "react-router-dom";
 
 import Nav from "./../components/Nav";
 
+import { Container } from "./../components/common.styles";
+
 import {
   fetchFavourites,
   addFavourites,
@@ -31,23 +33,25 @@ class Favourites extends Component {
     return (
       <div>
         <Nav />
-        {fetching && <p>Loading...</p>}
-        {error && <p>Error: {error}</p>}
-        {!favourites.length && !fetching && <p>No favourites</p>}
-        {favourites
-          .sort((a, b) => {
-            return +new Date(b.created_at) - +new Date(a.created_at);
-          })
-          .map(f => {
-            return (
-              <FeedItem
-                key={f.instagram_url_id}
-                media={f.data}
-                handleAddFavourites={this.handleAddFavourites}
-                handleRemoveFavourites={this.handleRemoveFavourites}
-              />
-            );
-          })}
+        <Container>
+          {fetching && <p>Loading...</p>}
+          {error && <p>Error: {error}</p>}
+          {!favourites.length && !fetching && <p>No favourites</p>}
+          {favourites
+            .sort((a, b) => {
+              return +new Date(b.created_at) - +new Date(a.created_at);
+            })
+            .map(f => {
+              return (
+                <FeedItem
+                  key={f.instagram_url_id}
+                  media={f.data}
+                  handleAddFavourites={this.handleAddFavourites}
+                  handleRemoveFavourites={this.handleRemoveFavourites}
+                />
+              );
+            })}
+        </Container>
       </div>
     );
   }

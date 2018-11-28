@@ -13,6 +13,7 @@ import Homepage from "../containers/Homepage";
 import Login from "../containers/Login";
 import SignUp from "../containers/SignUp";
 import Favourites from "../containers/Favourites";
+import { Feed } from "./Feed";
 
 const GlobalStyle = createGlobalStyle`
   html{
@@ -36,7 +37,10 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-const AppElement = styled.div``;
+const AppElement = styled.div`
+  max-width: 1800px;
+  margin: auto;
+`;
 
 class App extends Component {
   render() {
@@ -47,7 +51,13 @@ class App extends Component {
       <AppElement>
         <GlobalStyle />
         <Switch>
-          <Route path="/" exact render={props => <Homepage {...props} />} />
+          <Route
+            path="/"
+            exact
+            render={props =>
+              token ? <Redirect to="/feed" /> : <Homepage {...props} />
+            }
+          />
           <Route path="/feed" exact render={props => <Timeline {...props} />} />
           <Route exact path="/login" render={props => <Login {...props} />} />
           <Route

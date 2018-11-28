@@ -10,6 +10,18 @@ const NavLink = styled(Link)`
   margin-right: 12px;
 `;
 
+const NavMenu = styled.div`
+  border-bottom: 1px solid #ccc;
+  padding: 24px;
+  margin-bottom: 24px;
+  display: flex;
+  justify-content: space-between;
+  > * div:first-child {
+  }
+`;
+
+const isHome = path => path === "/";
+
 class Nav extends React.Component {
   handleLogout = () => {
     const { logout, history } = this.props;
@@ -18,19 +30,24 @@ class Nav extends React.Component {
   };
   render() {
     const {
-      auth: { token }
+      auth: { token },
+      location: { pathname }
     } = this.props;
     const loggedIn = !!token;
     return (
-      <div>
-        {!loggedIn && <NavLink to="/">Home</NavLink>}
-        {loggedIn && <NavLink to="/feed">Feed</NavLink>}
-        {loggedIn && <NavLink to="/profiles">Manage usernames</NavLink>}
-        {loggedIn && <NavLink to="/favourites">Favourites</NavLink>}
-        {!loggedIn && <NavLink to="/login">Login</NavLink>}
-        {!loggedIn && <NavLink to="/sign-up">Sign up</NavLink>}
-        {loggedIn && <p onClick={this.handleLogout}>Logout</p>}
-      </div>
+      <NavMenu>
+        <div>
+          {!loggedIn && !isHome(pathname) && <NavLink to="/">Home</NavLink>}
+          {loggedIn && <NavLink to="/feed">Feed</NavLink>}
+          {loggedIn && <NavLink to="/profiles">Manage usernames</NavLink>}
+          {loggedIn && <NavLink to="/favourites">Favourites</NavLink>}
+        </div>
+        <div>
+          {!loggedIn && <NavLink to="/login">Login</NavLink>}
+          {!loggedIn && <NavLink to="/sign-up">Sign up</NavLink>}
+          {loggedIn && <button onClick={this.handleLogout}>Logout</button>}
+        </div>
+      </NavMenu>
     );
   }
 }
