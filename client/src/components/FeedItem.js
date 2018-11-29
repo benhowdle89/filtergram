@@ -54,7 +54,7 @@ const FeedItemCaption = styled.div`
   position: absolute;
   top: 88px;
   left: 0;
-  bottom: 64px;
+  bottom: 88px;
   width: 100%;
   overflow: scroll;
   padding: 24px;
@@ -119,7 +119,7 @@ class FeedItem extends React.Component {
           {media.type === "GraphVideo" && (
             <video
               controls
-              playsinline
+              playsInline
               preload="auto"
               poster={media.image_url}
               src={media.extraMedia}

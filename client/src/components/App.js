@@ -5,6 +5,8 @@ import styled, { createGlobalStyle } from "styled-components";
 
 import "./../overrides.css";
 
+import { logout } from "../modules/auth";
+
 import Timeline from "../containers/Timeline";
 import Profiles from "../containers/Profiles";
 import Homepage from "../containers/Homepage";
@@ -13,7 +15,6 @@ import Homepage from "../containers/Homepage";
 import Login from "../containers/Login";
 import SignUp from "../containers/SignUp";
 import Favourites from "../containers/Favourites";
-import { Feed } from "./Feed";
 
 const GlobalStyle = createGlobalStyle`
   html{
@@ -43,6 +44,22 @@ const AppElement = styled.div`
 `;
 
 class App extends Component {
+  componentDidUpdate(prevProps, prevState) {
+    const {
+      auth: { token }
+    } = this.props;
+    const {
+      auth: { token: oldToken }
+    } = prevProps;
+    if (oldToken && !token) {
+      this.handleLogout();
+    }
+  }
+  handleLogout = () => {
+    const { logout, history } = this.props;
+    logout();
+    history.push("/");
+  };
   render() {
     const {
       auth: { token }
@@ -88,9 +105,13 @@ const mapStateToProps = state => ({
   auth: state.auth
 });
 
+const mapDispatchToProps = {
+  logout
+};
+
 export default withRouter(
   connect(
     mapStateToProps,
-    null
+    mapDispatchToProps
   )(App)
 );

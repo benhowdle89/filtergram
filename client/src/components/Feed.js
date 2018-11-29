@@ -42,9 +42,12 @@ export class Feed extends React.Component {
   };
   render() {
     const feed = this.feedDisplay();
+    const { fetching } = this.props;
     return (
       <Container>
-        <button onClick={this.props.refresh}>Refresh</button>
+        <button onClick={this.props.refresh} disabled={fetching}>
+          Refresh
+        </button>
         <FeedList>
           {feed.map(media => {
             return (

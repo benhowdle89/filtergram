@@ -97,6 +97,7 @@ export default function auth(state = initialState, action) {
         }
       };
     case types.LOGOUT:
+    case types.UNAUTHORIZED:
       return initialState;
     default:
       return state;
