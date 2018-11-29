@@ -117,7 +117,13 @@ class FeedItem extends React.Component {
             </Carousel>
           )}
           {media.type === "GraphVideo" && (
-            <video controls playsinline preload="none" src={media.extraMedia} />
+            <video
+              controls
+              playsinline
+              preload="auto"
+              poster={media.image_url}
+              src={media.extraMedia}
+            />
           )}
         </FeedItemImage>
         <FeedItemsDetails>
