@@ -2,17 +2,16 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import Nav from "./../components/Nav";
-
-import { Container } from "./../components/common.styles";
-
 import {
   fetchFavourites,
   addFavourites,
   removeFavourites
 } from "./../modules/favourites";
 
+import Nav from "./../components/Nav";
+import { Container } from "./../components/common.styles";
 import FeedItem from "./../components/FeedItem";
+import { Empty } from "./../components/Empty";
 
 class Favourites extends Component {
   componentDidMount() {
@@ -36,7 +35,11 @@ class Favourites extends Component {
         <Container>
           {fetching && <p>Loading...</p>}
           {error && <p>Error: {error}</p>}
-          {!favourites.length && !fetching && <p>No favourites</p>}
+          {!favourites.length && !fetching && (
+            <Empty>
+              No favourites. Go favourite some posts from your feed.
+            </Empty>
+          )}
           {favourites
             .sort((a, b) => {
               return +new Date(b.created_at) - +new Date(a.created_at);

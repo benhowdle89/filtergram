@@ -12,6 +12,7 @@ import {
 import Nav from "./../components/Nav";
 import { Feed } from "./../components/Feed";
 import { Loading } from "./../components/Loading";
+import { Empty } from "./../components/Empty";
 
 class Timeline extends Component {
   componentDidMount() {
@@ -29,7 +30,9 @@ class Timeline extends Component {
         <Nav />
         {fetching && <Loading />}
         {error && <p>Error: {error}</p>}
-        {!usernamesById.length && !fetching && <p>Nothing to show</p>}
+        {!usernamesById.length && !fetching && (
+          <Empty>Nothing to show. Go add some Instagram usernames.</Empty>
+        )}
         {
           <Feed
             usernames={usernames}

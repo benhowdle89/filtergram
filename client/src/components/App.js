@@ -41,6 +41,7 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
     font-weight: 600;
+    border-bottom: 3px solid transparent;
     :hover {
       border-bottom: 3px solid paleturquoise;
       box-shadow: 0px 2px 0px #000;
