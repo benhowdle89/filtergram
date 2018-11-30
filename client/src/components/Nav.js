@@ -70,7 +70,7 @@ class Nav extends React.Component {
     return (
       <NavMenu className="p3 mb3">
         <div>
-          <Logo className="mb2">Filtergram</Logo>
+          <Logo className={!isHome(pathname) && "mb2"}>Filtergram</Logo>
           {!loggedIn && !isHome(pathname) && (
             <NavItem
               exact
