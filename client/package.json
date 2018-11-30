@@ -5,6 +5,7 @@
   "dependencies": {
     "axios": "^0.18.0",
     "basscss": "8.0.2",
+    "date-fns": "^1.29.0",
     "linkify-instagram": "^0.6.2",
     "lodash.uniq": "^4.5.0",
     "react": "^16.6.3",

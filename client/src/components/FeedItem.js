@@ -3,6 +3,7 @@ import { connect } from "react-redux";
 import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
 import linkify from "linkify-instagram";
+import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -20,6 +21,7 @@ const Item = styled.div`
   }
 `;
 const FeedItemImage = styled.div`
+  position: relative;
   width: calc(100% * 2 / 3);
   @media (max-width: 700px) {
     width: auto;
@@ -28,6 +30,7 @@ const FeedItemImage = styled.div`
   margin-right: 24px;
   border: 3px solid #000;
   box-shadow: -6px 6px 0px paleturquoise;
+  left: 6px;
 `;
 const FeedItemsDetails = styled.div`
   width: calc(100% * 1 / 3);
@@ -104,6 +107,16 @@ const UserProfilePic = styled.img`
   margin-right: 12px;
 `;
 
+const Ago = styled.div`
+  position: absolute;
+  top: 0;
+  right: 0;
+  background: #000;
+  color: paleturquoise;
+  font-weight: 600;
+  z-index: 10;
+`;
+
 class FeedItem extends React.Component {
   isInFavourites = id => {
     const { favourites } = this.props.favourites;
@@ -119,6 +132,9 @@ class FeedItem extends React.Component {
     return (
       <Item className="mb4 pb4" key={media.instagram_url_id}>
         <FeedItemImage>
+          <Ago className="py1 px2">
+            {distanceInWordsToNow(new Date(media.timestamp * 1000))} ago
+          </Ago>
           {media.type === "GraphImage" && <img src={media.image_url} />}
           {media.type === "GraphSidecar" && (
             <Carousel showArrows={true} showThumbs={false}>
