@@ -104,7 +104,6 @@ api.post(
     }
     const { item } = req.body;
     const { userId } = req.params;
-    console.log(session, userId);
     if (session.id != userId) return res.sendStatus(403);
     const favourite = await model.addFavouriteForUser(userId, item);
     return res.json(favourite);
