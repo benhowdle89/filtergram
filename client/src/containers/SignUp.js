@@ -5,6 +5,7 @@ import { withRouter } from "react-router-dom";
 import { signUp } from "./../modules/auth";
 
 import Nav from "./../components/Nav";
+import { Button } from "./../components/Button";
 
 class SignUp extends Component {
   constructor(props) {
@@ -46,29 +47,35 @@ class SignUp extends Component {
     return (
       <div>
         <Nav />
-        <form
-          onSubmit={e => {
-            e.preventDefault();
-            this.handleSubmit();
-          }}
-        >
-          {this.state.error && <p>{this.state.error}</p>}
-          <label>Email</label>
-          <input
-            value={this.state.email}
-            type="email"
-            required
-            onChange={e => this.setState({ email: e.target.value })}
-          />
-          <label>Password</label>
-          <input
-            value={this.state.password}
-            type="password"
-            required
-            onChange={e => this.setState({ password: e.target.value })}
-          />
-          <input type="submit" />
-        </form>
+        <div className="max-width-1 mx-auto my4">
+          <form
+            onSubmit={e => {
+              e.preventDefault();
+              this.handleSubmit();
+            }}
+          >
+            {this.state.error && <p>{this.state.error}</p>}
+            <div>
+              <label>Email</label>
+              <input
+                value={this.state.email}
+                type="email"
+                required
+                onChange={e => this.setState({ email: e.target.value })}
+              />
+            </div>
+            <div>
+              <label>Password</label>
+              <input
+                value={this.state.password}
+                type="password"
+                required
+                onChange={e => this.setState({ password: e.target.value })}
+              />
+            </div>
+            <Button>Sign up</Button>
+          </form>
+        </div>
       </div>
     );
   }

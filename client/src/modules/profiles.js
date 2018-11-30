@@ -52,7 +52,7 @@ export function fetchProfiles() {
       const { data } = await api.fetchProfiles(id);
       dispatch(fetchProfilesSuccess(data));
     } catch (error) {
-      const message = "Wrong information";
+      const message = "Error fetching feed";
       dispatch(fetchProfilesFailure(message));
     }
   };

@@ -11,6 +11,7 @@ import {
 
 import Nav from "./../components/Nav";
 import { Feed } from "./../components/Feed";
+import { Loading } from "./../components/Loading";
 
 class Timeline extends Component {
   componentDidMount() {
@@ -26,7 +27,7 @@ class Timeline extends Component {
     return (
       <div>
         <Nav />
-        {fetching && <p>Loading...</p>}
+        {fetching && <Loading />}
         {error && <p>Error: {error}</p>}
         {!usernamesById.length && !fetching && <p>Nothing to show</p>}
         {

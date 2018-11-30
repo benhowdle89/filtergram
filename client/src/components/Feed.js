@@ -5,8 +5,15 @@ import { Container } from "./common.styles";
 
 import FeedItem from "./FeedItem";
 import { Button } from "./Button";
+import { Hr } from "./Hr";
 
 const FeedList = styled.div``;
+
+const Centered = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+`;
 
 const flatten = list =>
   list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
@@ -46,13 +53,16 @@ export class Feed extends React.Component {
     const { fetching } = this.props;
     return (
       <Container>
-        <Button
-          className="mb3"
-          onClick={this.props.refresh}
-          disabled={fetching}
-        >
-          Refresh
-        </Button>
+        {!fetching && (
+          <Centered>
+            <Button className="mb3" onClick={this.props.refresh}>
+              Refresh
+            </Button>
+          </Centered>
+        )}
+
+        <Hr />
+
         <FeedList>
           {feed.map(media => {
             return (

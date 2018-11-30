@@ -10,6 +10,7 @@ import Nav from "./../components/Nav";
 
 import { Container } from "./../components/common.styles";
 import { Button } from "./../components/Button";
+import { Loading } from "./../components/Loading";
 
 import { fetchProfiles, editProfiles } from "./../modules/profiles";
 
@@ -66,7 +67,7 @@ class Profiles extends Component {
       <div>
         <Nav />
         <Container>
-          {fetching && <p>Loading...</p>}
+          {fetching && <Loading />}
           {error && <p>Error: {error}</p>}
           {!usernamesById.length && !fetching && <p>Nothing to show</p>}
           <form

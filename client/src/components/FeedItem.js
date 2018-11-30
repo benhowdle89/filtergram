@@ -10,27 +10,44 @@ import { Button } from "./Button";
 
 const Item = styled.div`
   display: flex;
-  border-bottom: 1px solid #ccc;
-  min-height: 450px;
+  border-bottom: 3px solid paleturquoise;
+  box-shadow: 0px 2px 0px #000;
+  overflow-x: hidden;
+  /* min-height: 450px; */
   @media (max-width: 700px) {
     flex-direction: column;
+    padding-bottom: 0;
   }
 `;
 const FeedItemImage = styled.div`
   width: calc(100% * 2 / 3);
   @media (max-width: 700px) {
     width: auto;
-    padding: 0 24px;
+    margin-right: 0;
   }
   margin-right: 24px;
+  border: 3px solid #000;
+  box-shadow: -6px 6px 0px paleturquoise;
 `;
 const FeedItemsDetails = styled.div`
   width: calc(100% * 1 / 3);
+
+  /* padding: 0 24px; */
+  position: relative;
+  display: flex;
+  flex-direction: column;
   @media (max-width: 700px) {
     width: auto;
+    > div:nth-child(1) {
+      order: 2;
+    }
+    > div:nth-child(2) {
+      order: 1;
+    }
+    > div:nth-child(3) {
+      order: 3;
+    }
   }
-  padding: 0 24px;
-  position: relative;
 `;
 
 const FeedUser = styled.div`
@@ -40,13 +57,13 @@ const FeedUser = styled.div`
   top: 0;
   width: 100%;
   left: 0;
-  padding: 24px;
-  padding-left: 0;
-  background: #fff;
   z-index: 10;
-  border-bottom: 1px solid #ccc;
+  border-bottom: 3px solid paleturquoise;
+  box-shadow: 0px 2px 0px #000;
   @media (max-width: 700px) {
     position: relative;
+    width: auto;
+    top: 12px;
   }
 `;
 
@@ -65,18 +82,18 @@ const FeedItemCaption = styled.div`
 `;
 
 const FeedItemActions = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
   position: absolute;
   bottom: 0;
   left: 0;
   width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background: #fff;
-  z-index: 10;
-  border-top: 1px solid #ccc;
   @media (max-width: 700px) {
     position: relative;
+    padding: 1rem 0 1rem 0;
+    top: 24px;
   }
 `;
 
@@ -104,7 +121,7 @@ class FeedItem extends React.Component {
         <FeedItemImage>
           {media.type === "GraphImage" && <img src={media.image_url} />}
           {media.type === "GraphSidecar" && (
-            <Carousel showArrows={true}>
+            <Carousel showArrows={true} showThumbs={false}>
               {media.extraMedia.map(e => {
                 return (
                   <div key={e}>
@@ -125,7 +142,26 @@ class FeedItem extends React.Component {
           )}
         </FeedItemImage>
         <FeedItemsDetails>
-          <FeedUser>
+          <FeedItemActions>
+            {/* <a
+              data-external
+              href={`https://instagram.com/p/${media.instagram_url_id}`}
+            >
+              View on Instagram
+            </a> */}
+
+            <Button
+              onClick={() => {
+                !inFavourites
+                  ? this.props.handleAddFavourites(media)
+                  : this.props.handleRemoveFavourites(media.instagram_url_id);
+              }}
+              disabled={fetching}
+            >
+              {inFavourites ? "Unfavourite" : "Favourite"}
+            </Button>
+          </FeedItemActions>
+          <FeedUser className="p2">
             <UserProfilePic src={media.user_profile_pic} />
             <p dangerouslySetInnerHTML={{ __html: linkify(username) }} />
           </FeedUser>
@@ -139,25 +175,6 @@ class FeedItem extends React.Component {
               }}
             />
           </FeedItemCaption>
-          <FeedItemActions className="py3">
-            <p>
-              View on{" "}
-              <a href={`https://instagram.com/p/${media.instagram_url_id}`}>
-                Instagram
-              </a>
-            </p>
-
-            <Button
-              onClick={() => {
-                !inFavourites
-                  ? this.props.handleAddFavourites(media)
-                  : this.props.handleRemoveFavourites(media.instagram_url_id);
-              }}
-              disabled={fetching}
-            >
-              {inFavourites ? "Remove from" : "Add to"} Favourites
-            </Button>
-          </FeedItemActions>
         </FeedItemsDetails>
       </Item>
     );

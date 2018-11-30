@@ -12,28 +12,42 @@ const activeClassName = "nav-item-active";
 
 const NavItem = styled(NavLink)`
   text-decoration: none;
-  font-weight: 600;
-  border-bottom: 2px solid transparent;
+  font-weight: 700;
+  border-bottom: 3px solid transparent;
+  text-transform: uppercase;
   &.${activeClassName} {
-    border-bottom: 2px solid paleturquoise;
+    border-bottom: 3px solid paleturquoise;
+    box-shadow: 0px 2px 0px #000;
   }
   :hover {
-    border-bottom: 2px solid paleturquoise;
+    border-bottom: 3px solid paleturquoise;
+    box-shadow: 0px 2px 0px #000;
   }
 `;
 
 const NavMenu = styled.div`
-  border-bottom: 1px solid #ccc;
+  border-bottom: 3px solid #000;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  box-shadow: 0px 2px 0px paleturquoise;
+  @media (max-width: 700px) {
+    padding: 1rem 0;
+    flex-direction: column-reverse;
+    > div:first-child {
+      margin-bottom: 1rem;
+    }
+    > div:last-child {
+      align-self: flex-end;
+      margin-bottom: 1rem;
+    }
+  }
 `;
 
 const Logo = styled.h1`
   font-weight: 800;
   text-transform: uppercase;
-  text-shadow: 0px 3px 0px paleturquoise;
-  letter-spacing: 0px;
+  text-shadow: -2px 2px 0px paleturquoise;
 `;
 
 const isHome = path => path === "/";
