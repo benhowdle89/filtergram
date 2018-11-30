@@ -6,11 +6,11 @@ import linkify from "linkify-instagram";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
+import { Button } from "./Button";
+
 const Item = styled.div`
   display: flex;
-  margin-bottom: 2rem;
   border-bottom: 1px solid #ccc;
-  padding-bottom: 2rem;
   min-height: 450px;
   @media (max-width: 700px) {
     flex-direction: column;
@@ -57,8 +57,6 @@ const FeedItemCaption = styled.div`
   bottom: 88px;
   width: 100%;
   overflow: scroll;
-  padding: 24px;
-  padding-left: 0;
   @media (max-width: 700px) {
     position: relative;
     top: 0;
@@ -72,8 +70,8 @@ const FeedItemActions = styled.div`
   left: 0;
   width: 100%;
   display: flex;
-  padding: 24px;
-  padding-left: 0;
+  align-items: center;
+  justify-content: space-between;
   background: #fff;
   z-index: 10;
   border-top: 1px solid #ccc;
@@ -102,7 +100,7 @@ class FeedItem extends React.Component {
     const inFavourites = this.isInFavourites(media.instagram_url_id);
     const username = `@${media.username}`;
     return (
-      <Item key={media.instagram_url_id}>
+      <Item className="mb4 pb4" key={media.instagram_url_id}>
         <FeedItemImage>
           {media.type === "GraphImage" && <img src={media.image_url} />}
           {media.type === "GraphSidecar" && (
@@ -131,7 +129,7 @@ class FeedItem extends React.Component {
             <UserProfilePic src={media.user_profile_pic} />
             <p dangerouslySetInnerHTML={{ __html: linkify(username) }} />
           </FeedUser>
-          <FeedItemCaption>
+          <FeedItemCaption className="py3">
             <p
               dangerouslySetInnerHTML={{
                 __html: linkify(media.caption).replace(
@@ -141,7 +139,7 @@ class FeedItem extends React.Component {
               }}
             />
           </FeedItemCaption>
-          <FeedItemActions>
+          <FeedItemActions className="py3">
             <p>
               View on{" "}
               <a href={`https://instagram.com/p/${media.instagram_url_id}`}>
@@ -149,7 +147,7 @@ class FeedItem extends React.Component {
               </a>
             </p>
 
-            <button
+            <Button
               onClick={() => {
                 !inFavourites
                   ? this.props.handleAddFavourites(media)
@@ -158,7 +156,7 @@ class FeedItem extends React.Component {
               disabled={fetching}
             >
               {inFavourites ? "Remove from" : "Add to"} Favourites
-            </button>
+            </Button>
           </FeedItemActions>
         </FeedItemsDetails>
       </Item>

@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Container } from "./common.styles";
 
 import FeedItem from "./FeedItem";
+import { Button } from "./Button";
 
 const FeedList = styled.div``;
 
@@ -45,9 +46,13 @@ export class Feed extends React.Component {
     const { fetching } = this.props;
     return (
       <Container>
-        <button onClick={this.props.refresh} disabled={fetching}>
+        <Button
+          className="mb3"
+          onClick={this.props.refresh}
+          disabled={fetching}
+        >
           Refresh
-        </button>
+        </Button>
         <FeedList>
           {feed.map(media => {
             return (

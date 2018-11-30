@@ -9,6 +9,7 @@ import "react-tagsinput/react-tagsinput.css";
 import Nav from "./../components/Nav";
 
 import { Container } from "./../components/common.styles";
+import { Button } from "./../components/Button";
 
 import { fetchProfiles, editProfiles } from "./../modules/profiles";
 
@@ -82,7 +83,7 @@ class Profiles extends Component {
                 size: tagPlaceholder.length
               }}
             />
-            <input disabled={fetching} type="submit" />
+            <Button disabled={fetching}>Save</Button>
           </form>
         </Container>
       </div>

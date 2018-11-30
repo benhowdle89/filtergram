@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import styled, { createGlobalStyle } from "styled-components";
 
 import "./../overrides.css";
+import basscss from "basscss/css/basscss.min.css";
 
 import { logout } from "../modules/auth";
 
@@ -17,21 +18,29 @@ import SignUp from "../containers/SignUp";
 import Favourites from "../containers/Favourites";
 
 const GlobalStyle = createGlobalStyle`
+  * {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    vertical-align: baseline;
+  }
   html{
-    font-size:16px
+    font-size:14px
   }
   body{
     background:#fff;
-    font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Oxygen,Ubuntu,Cantarell,Fira Sans,Droid Sans,Helvetica Neue,sans-serif;
     text-rendering:optimizeLegibility;
     -webkit-font-smoothing:antialiased;
     color:#222;
-    font-size:1rem;
-    line-height:1.6;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+    font-size: 1rem;
+    line-height: 1.6;
     overflow:auto
   }
   a {
     color: inherit;
+    text-decoration: none;
+    font-weight: 600;
   }
   img, video {
     max-width: 100%;
@@ -84,7 +93,7 @@ class App extends Component {
           />
           <Route
             exact
-            path="/profiles"
+            path="/following"
             render={props => <Profiles {...props} />}
           />
 
