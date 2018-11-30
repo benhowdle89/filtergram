@@ -41,6 +41,10 @@ const GlobalStyle = createGlobalStyle`
     color: inherit;
     text-decoration: none;
     font-weight: 600;
+    :hover {
+      border-bottom: 3px solid paleturquoise;
+      box-shadow: 0px 2px 0px #000;
+    }
   }
   a[data-external]:after {
     content: url(data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAoAAAAKCAYAAACNMs+9AAAAQElEQVR42qXKwQkAIAxDUUdxtO6/RBQkQZvSi8I/pL4BoGw/XPkh4XigPmsUgh0626AjRsgxHTkUThsG2T/sIlzdTsp52kSS1wAAAABJRU5ErkJggg==);
