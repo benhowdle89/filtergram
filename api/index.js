@@ -26,7 +26,10 @@ const requireSession = async req => {
 const fetchInstagramProfilesForUsernames = async usernames => {
   const items = await Promise.all(
     usernames.map(async u => {
-      const media = await instagram.fetchInstagramProfile(u.username);
+      const media = await instagram.fetchInstagramProfile(
+        u.username,
+        u.filters
+      );
       if (!media.length) return null;
       return {
         media,
@@ -50,7 +53,14 @@ api.get(
     if (!profiles.length) {
       return res.json(profiles);
     }
-    const medias = await fetchInstagramProfilesForUsernames(profiles);
+    const medias = await fetchInstagramProfilesForUsernames(
+      profiles.map(profile => {
+        return {
+          ...profile,
+          filters: profile.filters ? profile.filters.filters : []
+        };
+      })
+    );
     return res.json(
       profiles.map(profile => {
         const { media } = medias.find(m => m.username === profile.username);
