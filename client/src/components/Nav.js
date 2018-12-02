@@ -133,7 +133,11 @@ class Nav extends React.Component {
               Sign up
             </NavItem>
           )}
-          {loggedIn && <Button onClick={this.handleLogout}>Logout</Button>}
+          {loggedIn && (
+            <Button destructive onClick={this.handleLogout}>
+              Logout
+            </Button>
+          )}
         </div>
       </NavMenu>
     );

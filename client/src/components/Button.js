@@ -5,21 +5,20 @@ const StyledButton = styled.button`
   align-self: center;
   cursor: pointer;
   appearance: none;
-  background-color: paleturquoise;
-  /* border: 3px solid #000;
-  box-sizing: border-box; */
+  background-color: ${props =>
+    !props.destructive ? "paleturquoise" : "#e74c3c"};
   box-shadow: -3px 3px 0px #000;
   outline: 0;
-  color: #000;
+  color: ${props => (!props.destructive ? "#000" : "#fff")};
   font-weight: 800;
   text-align: center;
   width: auto;
   font-family: inherit;
-  font-size: 16px;
+  font-size: ${props => (!props.destructive ? "16px" : "14px")};
   text-transform: uppercase;
   @media (max-width: 700px) {
     padding: 0.5rem 0.5rem;
-    font-size: 14px;
+    font-size: ${props => (!props.destructive ? "14px" : "12px")};
   }
   & > span {
     display: inline-block;

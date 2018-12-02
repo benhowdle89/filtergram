@@ -14,14 +14,7 @@ const PRODUCTION = process.env.NODE_ENV === "production";
 
 const APP_LS_KEY = "filtergram";
 
-const storageStates = [
-  "auth.user",
-  "auth.token",
-  "profiles.usernames",
-  "profiles.usernamesById",
-  "profiles.usernameFilters",
-  "favourites.favourites"
-];
+const storageStates = ["auth.user", "auth.token", "favourites.favourites"];
 
 const configureStore = () => {
   const loggerMiddleware = createLogger();

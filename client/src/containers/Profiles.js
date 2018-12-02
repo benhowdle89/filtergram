@@ -19,9 +19,9 @@ class Profiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      usernames: []
+      usernames: [],
+      newUsername: ""
     };
-    this.newUsernameInput = React.createRef();
   }
   componentDidMount() {
     if (!this.props.profiles.usernamesById.length) this.props.fetchProfiles();
@@ -37,19 +37,39 @@ class Profiles extends Component {
       this.setUsernames();
     }
   }
-  setUsernames = () => {
-    const usernames = this.props.profiles.usernamesById.map(u => {
+  formatUsernamesForState = () => {
+    return this.props.profiles.usernamesById.map(u => {
       return {
         username: u,
         filters: this.props.profiles.usernameFilters[u] || []
       };
     });
+  };
+  setUsernames = () => {
+    const usernames = this.formatUsernamesForState();
     this.setState({
       usernames
     });
   };
+  hasBeenEdited = () => {
+    const propsUsernames = this.formatUsernamesForState();
+    const { usernames } = this.state;
+    return JSON.stringify(propsUsernames) !== JSON.stringify(usernames);
+  };
   handleSubmit = () => {
     this.props.editProfiles(this.state.usernames);
+  };
+  handleAddNewUsername = () => {
+    const value = this.state.newUsername;
+    if (value) {
+      this.onAddNewUsername(value);
+    }
+  };
+  handleChange = ({ target }) => {
+    const { value } = target;
+    return this.setState({
+      newUsername: value
+    });
   };
   onAddNewUsername = username => {
     username = username.toLowerCase().trim();
@@ -61,51 +81,55 @@ class Profiles extends Component {
             username,
             filters: []
           }
-        ]
+        ],
+        newUsername: ""
       },
-      () => {
-        this.newUsernameInput.current.value = "";
-      }
+      this.handleSubmit
     );
   };
   onRemoveUsername = username => {
-    this.setState({
-      usernames: [...this.state.usernames.filter(u => u.username !== username)]
-    });
+    this.setState(
+      {
+        usernames: [
+          ...this.state.usernames.filter(u => u.username !== username)
+        ]
+      },
+      this.handleSubmit
+    );
   };
-  handleChange = ({ keyCode, target }) => {
-    const { value } = target;
-    if (keyCode === 13 && value) {
-      return this.onAddNewUsername(value);
-    }
-  };
-  handleRemove = username => username && this.onRemoveUsername(username);
   onAddFilter = ({ username, filter }) => {
-    this.setState({
-      usernames: [
-        ...this.state.usernames.map(u => {
-          if (u.username !== username) return u;
-          return {
-            ...u,
-            filters: uniq([...u.filters, filter.toLowerCase().trim()])
-          };
-        })
-      ]
-    });
+    this.setState(
+      {
+        usernames: [
+          ...this.state.usernames.map(u => {
+            if (u.username !== username) return u;
+            return {
+              ...u,
+              filters: uniq([...u.filters, filter.toLowerCase().trim()])
+            };
+          })
+        ]
+      },
+      this.handleSubmit
+    );
   };
   onRemoveFilter = ({ username, filter }) => {
-    this.setState({
-      usernames: [
-        ...this.state.usernames.map(u => {
-          if (u.username !== username) return u;
-          return {
-            ...u,
-            filters: [...u.filters.filter(f => f !== filter)]
-          };
-        })
-      ]
-    });
+    this.setState(
+      {
+        usernames: [
+          ...this.state.usernames.map(u => {
+            if (u.username !== username) return u;
+            return {
+              ...u,
+              filters: [...u.filters.filter(f => f !== filter)]
+            };
+          })
+        ]
+      },
+      this.handleSubmit
+    );
   };
+  handleRemove = username => username && this.onRemoveUsername(username);
   render() {
     const {
       profiles: { fetching, error }
@@ -115,7 +139,7 @@ class Profiles extends Component {
     return (
       <div>
         <Nav />
-        <div>
+        <div className="max-width-1 mx-auto my4">
           {fetching && <Loading />}
           {error && <p>Error: {error}</p>}
           {!usernames.length && !fetching && <p>Nothing to show</p>}
@@ -133,17 +157,27 @@ class Profiles extends Component {
               </FormInput>
             );
           })}
-          <input
-            type="text"
-            placeholder={tagPlaceholder}
-            onKeyDown={this.handleChange}
-            className="mb3"
-            ref={this.newUsernameInput}
-          />
-          <Hr />
-          <Button disabled={fetching} onClick={this.handleSubmit}>
-            Save
-          </Button>
+          <div className="flex justify-between items-center mb2">
+            <input
+              type="text"
+              disabled={fetching}
+              value={this.state.newUsername}
+              placeholder={tagPlaceholder}
+              onKeyDown={({ keyCode }) => {
+                if (keyCode === 13) this.handleAddNewUsername();
+              }}
+              onChange={this.handleChange}
+            />
+            {this.state.newUsername && (
+              <Button
+                className="ml1"
+                disabled={fetching}
+                onClick={this.handleAddNewUsername}
+              >
+                Save
+              </Button>
+            )}
+          </div>
         </div>
       </div>
     );
