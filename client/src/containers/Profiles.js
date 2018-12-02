@@ -8,6 +8,8 @@ import Nav from "./../components/Nav";
 
 import { Button } from "./../components/Button";
 import { Loading } from "./../components/Loading";
+import { Error } from "./../components/Error";
+import { Empty } from "./../components/Empty";
 import { FilterInput } from "./../components/FilterInput";
 import { Hr } from "./../components/Hr";
 
@@ -141,8 +143,17 @@ class Profiles extends Component {
         <Nav />
         <div className="max-width-1 mx-auto my4">
           {fetching && <Loading />}
-          {error && <p>Error: {error}</p>}
-          {!usernames.length && !fetching && <p>Nothing to show</p>}
+          {error && (
+            <Error>
+              <p className="mb2">{error}</p>
+              <Button onClick={this.props.fetchProfiles}>Try again?</Button>
+            </Error>
+          )}
+          {!usernames.length && !fetching && (
+            <Empty>
+              <p>Nothing to show</p>
+            </Empty>
+          )}
           {usernames.map(u => {
             return (
               <FormInput className="mb3" key={u.username}>
@@ -157,27 +168,29 @@ class Profiles extends Component {
               </FormInput>
             );
           })}
-          <div className="flex justify-between items-center mb2">
-            <input
-              type="text"
-              disabled={fetching}
-              value={this.state.newUsername}
-              placeholder={tagPlaceholder}
-              onKeyDown={({ keyCode }) => {
-                if (keyCode === 13) this.handleAddNewUsername();
-              }}
-              onChange={this.handleChange}
-            />
-            {this.state.newUsername && (
-              <Button
-                className="ml1"
+          {!error && (
+            <div className="flex justify-between items-center mb2">
+              <input
+                type="text"
                 disabled={fetching}
-                onClick={this.handleAddNewUsername}
-              >
-                Save
-              </Button>
-            )}
-          </div>
+                value={this.state.newUsername}
+                placeholder={tagPlaceholder}
+                onKeyDown={({ keyCode }) => {
+                  if (keyCode === 13) this.handleAddNewUsername();
+                }}
+                onChange={this.handleChange}
+              />
+              {this.state.newUsername && (
+                <Button
+                  className="ml1"
+                  disabled={fetching}
+                  onClick={this.handleAddNewUsername}
+                >
+                  Save
+                </Button>
+              )}
+            </div>
+          )}
         </div>
       </div>
     );

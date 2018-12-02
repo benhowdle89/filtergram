@@ -6,6 +6,7 @@ import { loginUsernamePassword } from "./../modules/auth";
 
 import Nav from "./../components/Nav";
 import { Button } from "./../components/Button";
+import { Error } from "./../components/Error";
 
 class Login extends Component {
   constructor(props) {
@@ -49,7 +50,7 @@ class Login extends Component {
               this.handleSubmit();
             }}
           >
-            {this.state.error && <p>{this.state.error}</p>}
+            {this.state.error && <Error>{this.state.error}</Error>}
             <div>
               <label>Email</label>
               <input

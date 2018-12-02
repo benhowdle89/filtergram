@@ -90,7 +90,7 @@ export function fetchFavourites() {
       const { data } = await api.fetchFavourites(id);
       dispatch(fetchFavouritesSuccess(data));
     } catch (error) {
-      const message = "Wrong information";
+      const message = "Error fetching favourites";
       dispatch(fetchFavouritesFailure(message));
     }
   };
@@ -126,7 +126,7 @@ export function addFavourites(item) {
       const { data } = await api.addFavourites(id, item);
       dispatch(addFavouritesSuccess(data));
     } catch (error) {
-      const message = "Wrong information";
+      const message = "Error adding favourite";
       dispatch(addFavouritesFailure(message));
     }
   };
@@ -162,7 +162,7 @@ export function removeFavourites(instagram_url_id) {
       const { data } = await api.removeFavourites(id, instagram_url_id);
       dispatch(removeFavouritesSuccess(data));
     } catch (error) {
-      const message = "Wrong information";
+      const message = "Error removing favourite";
       dispatch(removeFavouritesFailure(message));
     }
   };

@@ -6,6 +6,7 @@ import { signUp } from "./../modules/auth";
 
 import Nav from "./../components/Nav";
 import { Button } from "./../components/Button";
+import { Error } from "./../components/Error";
 
 class SignUp extends Component {
   constructor(props) {
@@ -54,7 +55,7 @@ class SignUp extends Component {
               this.handleSubmit();
             }}
           >
-            {this.state.error && <p>{this.state.error}</p>}
+            {this.state.error && <Error>{this.state.error}</Error>}
             <div>
               <label>Email</label>
               <input

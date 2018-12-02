@@ -117,7 +117,11 @@ export function loginUsernamePassword(email, password) {
       const { data } = await api.loginUsernamePassword(email, password);
       dispatch(loginUsernamePasswordSuccess(data));
     } catch (error) {
-      const message = "User not found";
+      const { status } = error;
+      let message = "Error logging in";
+      if (status >= 400) {
+        message = "Incorrect email or password";
+      }
       dispatch(loginUsernamePasswordFailure(message));
     }
   };
@@ -150,7 +154,11 @@ export function signUp(email, password) {
       const { data } = await api.signUp(email, password);
       dispatch(signUpSuccess(data));
     } catch (error) {
-      const message = "User already exists";
+      const { status } = error;
+      let message = "Error signing up";
+      if (status >= 400) {
+        message = "User exists";
+      }
       dispatch(signUpFailure(message));
     }
   };

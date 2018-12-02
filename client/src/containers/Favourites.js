@@ -11,6 +11,7 @@ import {
 import Nav from "./../components/Nav";
 import FeedItem from "./../components/FeedItem";
 import { Empty } from "./../components/Empty";
+import { Error } from "./../components/Error";
 
 class Favourites extends Component {
   componentDidMount() {
@@ -33,7 +34,7 @@ class Favourites extends Component {
         <Nav />
         <div>
           {fetching && <p>Loading...</p>}
-          {error && <p>Error: {error}</p>}
+          {error && <Error>{error}</Error>}
           {!favourites.length && !fetching && (
             <Empty>
               No favourites. Go favourite some posts from your feed.

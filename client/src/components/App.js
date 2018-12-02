@@ -70,7 +70,7 @@ const GlobalStyle = createGlobalStyle`
     display: inline-block;
     width: 100%;
     font-size: 14px;
-    font-family: inherit;
+    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     box-sizing: border-box;
   }
 `;
