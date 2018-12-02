@@ -8,6 +8,7 @@ const ErrorElement = styled.div`
   font-weight: 600;
   color: #fff;
   background: #e74c3c;
+  box-shadow: -3px 3px 0px #000;
 `;
 
 export const Error = ({ children }) => {

@@ -54,7 +54,7 @@ export class Feed extends React.Component {
         {!fetching && (
           <Centered>
             <Button className="mb3" onClick={this.props.refresh}>
-              Refresh
+              Refresh feed
             </Button>
           </Centered>
         )}
