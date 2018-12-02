@@ -1,8 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-import { Container } from "./common.styles";
-
 import FeedItem from "./FeedItem";
 import { Button } from "./Button";
 import { Hr } from "./Hr";
@@ -52,7 +50,7 @@ export class Feed extends React.Component {
     const feed = this.feedDisplay();
     const { fetching } = this.props;
     return (
-      <Container>
+      <div>
         {!fetching && (
           <Centered>
             <Button className="mb3" onClick={this.props.refresh}>
@@ -75,7 +73,7 @@ export class Feed extends React.Component {
             );
           })}
         </FeedList>
-      </Container>
+      </div>
     );
   }
 }

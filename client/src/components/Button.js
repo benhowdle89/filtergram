@@ -17,10 +17,12 @@ const StyledButton = styled.button`
   font-family: inherit;
   font-size: 16px;
   text-transform: uppercase;
-  /* transform: skew(-14deg) rotate(-3deg); */
+  @media (max-width: 700px) {
+    padding: 0.5rem 0.5rem;
+    font-size: 14px;
+  }
   & > span {
     display: inline-block;
-    /* transform: skew(14deg) rotate(3deg); */
     border-bottom: 2px solid transparent;
   }
   &:hover {

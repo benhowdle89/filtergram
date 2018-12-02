@@ -9,7 +9,6 @@ import {
 } from "./../modules/favourites";
 
 import Nav from "./../components/Nav";
-import { Container } from "./../components/common.styles";
 import FeedItem from "./../components/FeedItem";
 import { Empty } from "./../components/Empty";
 
@@ -32,7 +31,7 @@ class Favourites extends Component {
     return (
       <div>
         <Nav />
-        <Container>
+        <div>
           {fetching && <p>Loading...</p>}
           {error && <p>Error: {error}</p>}
           {!favourites.length && !fetching && (
@@ -54,7 +53,7 @@ class Favourites extends Component {
                 />
               );
             })}
-        </Container>
+        </div>
       </div>
     );
   }

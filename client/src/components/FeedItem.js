@@ -13,7 +13,6 @@ const Item = styled.div`
   display: flex;
   border-bottom: 3px solid paleturquoise;
   box-shadow: 0px 2px 0px #000;
-  overflow-x: hidden;
   /* min-height: 450px; */
   @media (max-width: 700px) {
     flex-direction: column;
@@ -23,14 +22,16 @@ const Item = styled.div`
 const FeedItemImage = styled.div`
   position: relative;
   width: calc(100% * 2 / 3);
-  @media (max-width: 700px) {
-    width: auto;
-    margin-right: 0;
-  }
   margin-right: 24px;
   border: 3px solid #000;
   box-shadow: -6px 6px 0px paleturquoise;
   left: 6px;
+  @media (max-width: 700px) {
+    width: 100vw;
+    margin: 0 -24px;
+    left: 0;
+    border: 0;
+  }
 `;
 const FeedItemsDetails = styled.div`
   width: calc(100% * 1 / 3);
@@ -115,6 +116,9 @@ const Ago = styled.div`
   color: paleturquoise;
   font-weight: 600;
   z-index: 10;
+  @media (max-width: 700px) {
+    font-size: 12px;
+  }
 `;
 
 class FeedItem extends React.Component {

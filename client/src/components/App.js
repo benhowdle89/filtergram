@@ -70,6 +70,7 @@ const GlobalStyle = createGlobalStyle`
     display: inline-block;
     width: 100%;
     font-size: 14px;
+    font-family: inherit;
     box-sizing: border-box;
   }
 `;

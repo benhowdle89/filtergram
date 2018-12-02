@@ -5,15 +5,16 @@ const pool = new Pool({
   connectionString: connectionString
 });
 
-const shutdown = async () => {
-  await pool.end();
-  process.exit(0);
-};
+// const shutdown = async () => {
+//   await pool.end();
+//   process.exit(0);
+// };
 
-process.on("SIGTERM", shutdown);
-process.on("SIGINT", shutdown);
+// process.on("SIGTERM", shutdown);
+// process.on("SIGINT", shutdown);
 
 module.exports = async (query, values) => {
+  console.log(`Running query ${query} with values ${values}`);
   const { rows } = await pool.query(query, values);
   return rows;
 };

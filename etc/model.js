@@ -16,16 +16,27 @@ const getFavouritesByUserId = async userId => {
   return query(`SELECT * FROM favourites WHERE user_id = $1`, [userId]);
 };
 
-const updateProfilesByUserId = async (userId, usernames) => {
-  await query(`DELETE FROM profiles WHERE user_id = $1`, [userId]);
-  return Promise.all(
-    usernames.map(username => {
-      return query(`INSERT INTO profiles(username, user_id) values($1, $2)`, [
-        username,
-        userId
-      ]);
-    })
+const updateProfileByUserId = async (userId, username, filters) => {
+  filters = JSON.stringify(filters);
+  return query(
+    `UPDATE profiles SET filters = $1 WHERE user_id = $2 AND username = $3`,
+    [filters, userId, username]
   );
+};
+
+const addProfileByUserId = async (userId, username, filters) => {
+  filters = JSON.stringify(filters);
+  return query(
+    `INSERT INTO profiles(user_id, username, filters) values($1, $2, $3)`,
+    [userId, username, filters]
+  );
+};
+
+const removeProfileByUserId = async (userId, username) => {
+  return query(`DELETE FROM profiles WHERE user_id = $1 AND username = $2`, [
+    userId,
+    username
+  ]);
 };
 
 const addFavouriteForUser = async (userId, item) => {
@@ -60,7 +71,9 @@ module.exports = {
   getUserByEmail,
   createUser,
   getProfilesByUserId,
-  updateProfilesByUserId,
+  updateProfileByUserId,
+  addProfileByUserId,
+  removeProfileByUserId,
   addFavouriteForUser,
   getFavouritesByUserId,
   removeFavouritesForUser

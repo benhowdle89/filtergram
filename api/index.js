@@ -51,7 +51,16 @@ api.get(
       return res.json(profiles);
     }
     const medias = await fetchInstagramProfilesForUsernames(profiles);
-    return res.json(medias);
+    return res.json(
+      profiles.map(profile => {
+        const { media } = medias.find(m => m.username === profile.username);
+        return {
+          ...profile,
+          filters: profile.filters ? profile.filters.filters : [],
+          media
+        };
+      })
+    );
   })
 );
 
@@ -64,20 +73,66 @@ api.post(
     }
     const { userId } = req.params;
     if (session.id != userId) return res.sendStatus(403);
+
     const { usernames } = req.body;
-    const medias = await fetchInstagramProfilesForUsernames(
-      usernames.map(u => {
+
+    const medias = await fetchInstagramProfilesForUsernames(usernames);
+
+    const validUsernames = medias.map(m => m.username);
+
+    const currentUsernames = await model.getProfilesByUserId(userId);
+
+    const toAdd = [];
+    const toUpdate = [];
+
+    const exists = username =>
+      currentUsernames.find(c => c.username === username);
+
+    validUsernames.forEach(username => {
+      if (exists(username)) {
+        toUpdate.push(username);
+      } else {
+        toAdd.push(username);
+      }
+    });
+
+    const toDelete = currentUsernames.filter(
+      c => !validUsernames.includes(c.username)
+    );
+
+    await Promise.all(
+      toUpdate.map(username => {
+        const u = usernames.find(u => u.username === username);
+        return model.updateProfileByUserId(userId, u.username, {
+          filters: u.filters
+        });
+      })
+    );
+
+    await Promise.all(
+      toAdd.map(username => {
+        const u = usernames.find(u => u.username === username);
+        return model.addProfileByUserId(userId, u.username, {
+          filters: u.filters
+        });
+      })
+    );
+
+    await Promise.all(
+      toDelete.map(u => {
+        return model.removeProfileByUserId(userId, u.username);
+      })
+    );
+
+    return res.json(
+      medias.map(media => {
+        const { filters } = usernames.find(u => u.username === media.username);
         return {
-          username: u
+          ...media,
+          filters
         };
       })
     );
-    const validUsernames = medias.map(m => m.username);
-    await model.updateProfilesByUserId(
-      userId,
-      usernames.filter(u => validUsernames.includes(u))
-    );
-    return res.json(medias);
   })
 );
 

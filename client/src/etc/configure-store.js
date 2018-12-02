@@ -19,6 +19,7 @@ const storageStates = [
   "auth.token",
   "profiles.usernames",
   "profiles.usernamesById",
+  "profiles.usernameFilters",
   "favourites.favourites"
 ];
 

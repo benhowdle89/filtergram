@@ -35,7 +35,7 @@ app.use(
 app.use(cookieParser());
 app.use(bearerToken());
 
-const { PORT = 5000 } = process.env;
+const { PORT = 9000 } = process.env;
 
 app.use(express.static(path.join(__dirname, "/client/build")));
 
@@ -45,6 +45,22 @@ app.use("/api", api);
 app.get("*", (req, res) => {
   res.sendFile(path.join(__dirname + "/client/build/index.html"));
 });
+
+process
+  .on("SIGTERM", shutdown("SIGTERM"))
+  .on("SIGINT", shutdown("SIGINT"))
+  .on("uncaughtException", shutdown("uncaughtException"));
+
+function shutdown(signal) {
+  return err => {
+    console.log(`${signal}...`);
+    if (err) console.error(err.stack || err);
+    setTimeout(() => {
+      console.log("...waited 2s, exiting.");
+      process.exit(err ? 1 : 0);
+    }, 2000).unref();
+  };
+}
 
 app.listen(PORT, () => {
   console.log(`API running on port ${PORT}`);

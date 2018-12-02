@@ -4,6 +4,7 @@ import fetch from "./../etc/fetch";
 export const initialState = {
   usernamesById: [],
   usernames: {},
+  usernameFilters: {},
   fetching: false,
   error: null
 };
@@ -25,13 +26,16 @@ export default function profiles(state = initialState, action) {
     case types.FETCH_PROFILES_SUCCESS:
       const { data: fetchProfilesData } = action;
       let usernames = {};
+      let usernameFilters = {};
       fetchProfilesData.forEach(p => {
         usernames[p.username] = [...p.media];
+        usernameFilters[p.username] = p.filters || [];
       });
       return {
         ...state,
         usernames,
         usernamesById: [...Object.keys(usernames)],
+        usernameFilters,
         fetching: false,
         error: null
       };
