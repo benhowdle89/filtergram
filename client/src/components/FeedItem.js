@@ -4,6 +4,7 @@ import styled from "styled-components";
 import { Carousel } from "react-responsive-carousel";
 import linkify from "linkify-instagram";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
+import Truncate from "react-truncate-html";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
@@ -91,7 +92,7 @@ const FeedItemActions = styled.div`
   justify-content: center;
   background: #fff;
   position: absolute;
-  bottom: 0;
+  bottom: 6px;
   left: 0;
   width: 100%;
   @media (max-width: 700px) {
@@ -121,10 +122,38 @@ const Ago = styled.div`
   }
 `;
 
+const MAX_CAPTION_SIZE = 280;
+
 class FeedItem extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      expanded: false
+    };
+  }
   isInFavourites = id => {
     const { favourites } = this.props.favourites;
     return favourites.map(f => f.instagram_url_id).includes(id);
+  };
+  getCaption = ({ caption }) => {
+    const html = linkify(caption).replace(/(?:\r\n|\r|\n)/g, "<br />");
+    if (!this.state.expanded && caption.length > MAX_CAPTION_SIZE) {
+      return (
+        <Truncate
+          lines={3}
+          dangerouslySetInnerHTML={{
+            __html: html
+          }}
+        />
+      );
+    }
+    return (
+      <p
+        dangerouslySetInnerHTML={{
+          __html: html
+        }}
+      />
+    );
   };
   render() {
     const {
@@ -163,13 +192,6 @@ class FeedItem extends React.Component {
         </FeedItemImage>
         <FeedItemsDetails>
           <FeedItemActions>
-            {/* <a
-              data-external
-              href={`https://instagram.com/p/${media.instagram_url_id}`}
-            >
-              View on Instagram
-            </a> */}
-
             <Button
               onClick={() => {
                 !inFavourites
@@ -186,14 +208,23 @@ class FeedItem extends React.Component {
             <p dangerouslySetInnerHTML={{ __html: linkify(username) }} />
           </FeedUser>
           <FeedItemCaption className="py3">
-            <p
-              dangerouslySetInnerHTML={{
-                __html: linkify(media.caption).replace(
-                  /(?:\r\n|\r|\n)/g,
-                  "<br />"
-                )
-              }}
-            />
+            <div className="mb3">
+              {this.getCaption(media)}
+              {!this.state.expanded && media.caption.length > MAX_CAPTION_SIZE && (
+                <p
+                  className="bold"
+                  onClick={() => this.setState({ expanded: true })}
+                >
+                  read more
+                </p>
+              )}
+            </div>
+            <a
+              data-external
+              href={`https://instagram.com/p/${media.instagram_url_id}`}
+            >
+              View on Instagram
+            </a>
           </FeedItemCaption>
         </FeedItemsDetails>
       </Item>
