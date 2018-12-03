@@ -9,15 +9,17 @@ import Truncate from "react-truncate-html";
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Button } from "./Button";
+import { HeadingText } from "./common.styles";
 
 const Item = styled.div`
   display: flex;
   border-bottom: 3px solid paleturquoise;
   box-shadow: 0px 2px 0px #000;
-  /* min-height: 450px; */
+  overflow: hidden;
   @media (max-width: 700px) {
     flex-direction: column;
     padding-bottom: 0;
+    overflow: visible;
   }
 `;
 const FeedItemImage = styled.div`
@@ -31,6 +33,7 @@ const FeedItemImage = styled.div`
     width: 100vw;
     margin: 0 -24px;
     left: 0;
+    right: 0;
     border: 0;
   }
 `;
@@ -109,7 +112,7 @@ const UserProfilePic = styled.img`
   margin-right: 12px;
 `;
 
-const Ago = styled.div`
+const Ago = styled(HeadingText)`
   position: absolute;
   top: 0;
   right: 0;
@@ -205,7 +208,15 @@ class FeedItem extends React.Component {
           </FeedItemActions>
           <FeedUser className="p2">
             <UserProfilePic src={media.user_profile_pic} />
-            <p dangerouslySetInnerHTML={{ __html: linkify(username) }} />
+            <p
+              dangerouslySetInnerHTML={{
+                __html: linkify(
+                  username,
+                  undefined,
+                  '<a href="https://www.instagram.com/{username}" data-external>@{username}</a>'
+                )
+              }}
+            />
           </FeedUser>
           <FeedItemCaption className="py3">
             <div className="mb3">

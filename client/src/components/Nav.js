@@ -68,7 +68,7 @@ class Nav extends React.Component {
     } = this.props;
     const loggedIn = !!token;
     return (
-      <NavMenu className="p3 mb3">
+      <NavMenu className="py3 mb3">
         <div>
           <Logo className={!isHome(pathname) && "mb2"}>Filtergram</Logo>
           {!loggedIn && !isHome(pathname) && (
