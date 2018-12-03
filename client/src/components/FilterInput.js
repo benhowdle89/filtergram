@@ -9,8 +9,9 @@ export const FilterInput = ({
   handleRemoveUsername
 }) => {
   const handleAdd = () => {
-    const { value } = newFilterInput;
+    let { value } = newFilterInput;
     if (value) {
+      value = value.replace(/\s.*/, "");
       onAddFilter({ username, filter: value });
       if (newFilterInput) {
         newFilterInput.value = "";
@@ -21,7 +22,7 @@ export const FilterInput = ({
   return (
     <div className="mb3 flex flex-column">
       <div className="flex justify-between items-center mb2">
-        <p className="bold mr2">@{username}</p>
+        <p className="bold">@{username}</p>
         <Button destructive onClick={() => handleRemoveUsername(username)}>
           Unfollow
         </Button>
@@ -45,7 +46,7 @@ export const FilterInput = ({
         <input
           ref={el => (newFilterInput = el)}
           type="text"
-          placeholder="New filter"
+          placeholder="ie. food, gym, tech, etc..."
           onKeyDown={({ keyCode }) => {
             if (keyCode === 13) handleAdd();
           }}

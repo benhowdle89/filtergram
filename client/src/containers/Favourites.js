@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import {
   fetchFavourites,
@@ -37,7 +37,8 @@ class Favourites extends Component {
           {error && <Error>{error}</Error>}
           {!favourites.length && !fetching && (
             <Empty>
-              No favourites. Go favourite some posts from your feed.
+              No favourites. Go favourite some posts from your{" "}
+              <Link to="/feed">feed</Link>.
             </Empty>
           )}
           {favourites

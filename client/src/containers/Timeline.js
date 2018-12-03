@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { connect } from "react-redux";
-import { withRouter } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 
 import { fetchProfiles } from "./../modules/profiles";
 import {
@@ -32,7 +32,10 @@ class Timeline extends Component {
         {fetching && <Loading />}
         {error && <Error>Error: {error}</Error>}
         {!usernamesById.length && !fetching && (
-          <Empty>Nothing to show. Go add some Instagram usernames.</Empty>
+          <Empty>
+            Nothing to show. Go add some{" "}
+            <Link to="/following">Instagram usernames</Link>.
+          </Empty>
         )}
         {
           <Feed

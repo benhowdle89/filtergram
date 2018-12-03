@@ -203,7 +203,9 @@ class FeedItem extends React.Component {
               }}
               disabled={fetching}
             >
-              {inFavourites ? "Unfavourite" : "Favourite"}
+              {inFavourites
+                ? "Remove from Filtergram Favourites"
+                : "Add to Filtergram Favourites"}
             </Button>
           </FeedItemActions>
           <FeedUser className="p2">

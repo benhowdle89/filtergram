@@ -40,7 +40,7 @@ const GlobalStyle = createGlobalStyle`
   a {
     color: inherit;
     text-decoration: none;
-    font-weight: 600;
+    font-weight: 800;
     border-bottom: 3px solid transparent;
     :hover {
       border-bottom: 3px solid paleturquoise;

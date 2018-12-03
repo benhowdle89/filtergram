@@ -1,9 +1,11 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 import FeedItem from "./FeedItem";
 import { Button } from "./Button";
 import { Hr } from "./Hr";
+import { Empty } from "./Empty";
 
 const FeedList = styled.div``;
 
@@ -51,6 +53,13 @@ export class Feed extends React.Component {
     const { fetching } = this.props;
     return (
       <div>
+        {!feed.length && !fetching && (
+          <Empty>
+            No posts. Try <Link to="/following">following</Link> some Instagram
+            users or editing your filters.
+          </Empty>
+        )}
+
         {!fetching && (
           <Centered>
             <Button className="mb3" onClick={this.props.refresh}>

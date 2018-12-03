@@ -141,6 +141,7 @@ class Profiles extends Component {
     return (
       <div>
         <Nav />
+
         <div className="max-width-1 mx-auto my4">
           {fetching && <Loading />}
           {error && (
@@ -149,11 +150,50 @@ class Profiles extends Component {
               <Button onClick={this.props.fetchProfiles}>Try again?</Button>
             </Error>
           )}
-          {!usernames.length && !fetching && (
-            <Empty>
-              <p>Nothing to show</p>
-            </Empty>
+
+          {!error && (
+            <div className="mb4">
+              <p className="bold mb2">Who do you want to follow?</p>
+              <div className="flex justify-between items-center">
+                <input
+                  type="text"
+                  disabled={fetching}
+                  value={this.state.newUsername}
+                  placeholder={tagPlaceholder}
+                  onKeyDown={({ keyCode }) => {
+                    if (keyCode === 13) this.handleAddNewUsername();
+                  }}
+                  onChange={this.handleChange}
+                />
+                {this.state.newUsername && (
+                  <Button
+                    className="ml1"
+                    disabled={fetching}
+                    onClick={this.handleAddNewUsername}
+                  >
+                    Save
+                  </Button>
+                )}
+              </div>
+            </div>
           )}
+
+          <Hr />
+
+          {!!usernames.length && (
+            <div className="max-width-2 mx-auto mb3">
+              <p className="mb1">
+                You can decide what posts are included in your feed by adding
+                some filters for each user. If their post's caption contain your
+                filter words, then it's displayed!
+              </p>
+              <p>
+                If you don't add any filters, all posts are displayed for that
+                user.
+              </p>
+            </div>
+          )}
+
           {usernames.map(u => {
             return (
               <FormInput className="mb3" key={u.username}>
@@ -168,29 +208,6 @@ class Profiles extends Component {
               </FormInput>
             );
           })}
-          {!error && (
-            <div className="flex justify-between items-center mb2">
-              <input
-                type="text"
-                disabled={fetching}
-                value={this.state.newUsername}
-                placeholder={tagPlaceholder}
-                onKeyDown={({ keyCode }) => {
-                  if (keyCode === 13) this.handleAddNewUsername();
-                }}
-                onChange={this.handleChange}
-              />
-              {this.state.newUsername && (
-                <Button
-                  className="ml1"
-                  disabled={fetching}
-                  onClick={this.handleAddNewUsername}
-                >
-                  Save
-                </Button>
-              )}
-            </div>
-          )}
         </div>
       </div>
     );

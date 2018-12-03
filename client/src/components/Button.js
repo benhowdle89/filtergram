@@ -14,11 +14,11 @@ const StyledButton = styled.button`
   text-align: center;
   width: auto;
   font-family: inherit;
-  font-size: ${props => (!props.destructive ? "16px" : "14px")};
+  font-size: ${props => (!props.destructive ? "14px" : "12px")};
   text-transform: uppercase;
   @media (max-width: 700px) {
     padding: 0.5rem 0.5rem;
-    font-size: ${props => (!props.destructive ? "14px" : "12px")};
+    font-size: ${props => (!props.destructive ? "12px" : "10px")};
   }
   & > span {
     display: inline-block;
