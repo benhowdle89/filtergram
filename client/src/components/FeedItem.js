@@ -175,9 +175,22 @@ class FeedItem extends React.Component {
           {media.type === "GraphSidecar" && (
             <Carousel showArrows={true} showThumbs={false}>
               {media.extraMedia.map(e => {
+                const { url, type, poster } = e;
+                if (type === "GraphVideo") {
+                  return (
+                    <video
+                      controls
+                      playsInline
+                      preload="auto"
+                      poster={poster}
+                      src={url}
+                      key={url}
+                    />
+                  );
+                }
                 return (
-                  <div key={e}>
-                    <img src={e} />
+                  <div key={url}>
+                    <img src={url} />
                   </div>
                 );
               })}
@@ -229,7 +242,7 @@ class FeedItem extends React.Component {
               {this.getCaption(media)}
               {!this.state.expanded && media.caption.length > MAX_CAPTION_SIZE && (
                 <p
-                  className="bold"
+                  className="bold pointer"
                   onClick={() => this.setState({ expanded: true })}
                 >
                   read more

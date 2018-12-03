@@ -73,6 +73,7 @@ const GlobalStyle = createGlobalStyle`
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     box-sizing: border-box;
   }
+  .pointer { cursor: pointer; }
 `;
 
 const AppElement = styled.div`
