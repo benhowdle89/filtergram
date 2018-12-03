@@ -68,7 +68,8 @@ class Profiles extends Component {
     }
   };
   handleChange = ({ target }) => {
-    const { value } = target;
+    let { value } = target;
+    value = value.replace(/\s.*/, "");
     return this.setState({
       newUsername: value
     });
