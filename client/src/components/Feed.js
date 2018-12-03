@@ -18,27 +18,57 @@ const Centered = styled.div`
 const flatten = list =>
   list.reduce((a, b) => a.concat(Array.isArray(b) ? flatten(b) : b), []);
 
+const ITEMS_TO_DISPLAY = 12;
+
 export class Feed extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      itemsToShow: ITEMS_TO_DISPLAY
+    };
+  }
   sortFeed = list => {
     return list.sort((a, b) => {
       return b.timestamp - a.timestamp;
     });
   };
-  feedDisplay() {
+  backToTop = () => {
+    window.scrollTo(0, 0);
+  };
+  showMorePosts = () => {
+    const { itemsToShow } = this.state;
+    const totalItems = this.getFlattenedMediaList().length;
+    let newItemsToShow = itemsToShow + ITEMS_TO_DISPLAY;
+    if (newItemsToShow > totalItems) newItemsToShow = totalItems;
+    return this.setState({
+      itemsToShow: newItemsToShow
+    });
+  };
+  hasMorePostsToShow = () => {
+    const { itemsToShow } = this.state;
+    const totalItems = this.getFlattenedMediaList().length;
+    return itemsToShow < totalItems;
+  };
+  getFlattenedMediaList = () => {
     const { usernames, usernamesById } = this.props;
-    const list = usernamesById.reduce((list, username) => {
-      const usernameObj = usernames[username];
-      return [
-        ...list,
-        usernameObj.map(u => {
-          return {
-            ...u,
-            username
-          };
-        })
-      ];
-    }, []);
-    return this.sortFeed(flatten(list));
+    return flatten(
+      usernamesById.reduce((list, username) => {
+        const usernameObj = usernames[username];
+        return [
+          ...list,
+          usernameObj.map(u => {
+            return {
+              ...u,
+              username
+            };
+          })
+        ];
+      }, [])
+    );
+  };
+  feedDisplay(max) {
+    const list = this.getFlattenedMediaList();
+    return this.sortFeed(list).slice(0, max);
   }
   handleAddFavourites = media => {
     const { addFavourites } = this.props;
@@ -49,10 +79,12 @@ export class Feed extends React.Component {
     removeFavourites(instagram_url_id);
   };
   render() {
-    const feed = this.feedDisplay();
     const { fetching } = this.props;
+    const { itemsToShow } = this.state;
+    const feed = this.feedDisplay(itemsToShow);
+
     return (
-      <div>
+      <div className="pb4">
         {!feed.length && !fetching && (
           <Empty>
             No posts. Try <Link to="/following">following</Link> some Instagram
@@ -82,6 +114,16 @@ export class Feed extends React.Component {
             );
           })}
         </FeedList>
+        {!!feed.length && this.hasMorePostsToShow() && (
+          <Centered>
+            <Button onClick={this.showMorePosts}>Load more posts</Button>
+          </Centered>
+        )}
+        {!!feed.length && !this.hasMorePostsToShow() && (
+          <Centered>
+            <Button onClick={this.backToTop}>Back to top</Button>
+          </Centered>
+        )}
       </div>
     );
   }
