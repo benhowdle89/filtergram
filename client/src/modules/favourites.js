@@ -83,9 +83,14 @@ export default function favourites(state = initialState, action) {
 export function fetchFavourites() {
   return async (dispatch, getState) => {
     dispatch(fetchFavouritesRequest());
-    const {
-      user: { id }
-    } = getState().auth;
+    const user = getState().auth.user;
+    if (!user) {
+      return dispatch({
+        type: types.UNAUTHORIZED,
+        status: 401
+      });
+    }
+    const { id } = user;
     try {
       const { data } = await api.fetchFavourites(id);
       dispatch(fetchFavouritesSuccess(data));
@@ -119,9 +124,14 @@ export function fetchFavouritesFailure(error) {
 export function addFavourites(item) {
   return async (dispatch, getState) => {
     dispatch(addFavouritesRequest());
-    const {
-      user: { id }
-    } = getState().auth;
+    const user = getState().auth.user;
+    if (!user) {
+      return dispatch({
+        type: types.UNAUTHORIZED,
+        status: 401
+      });
+    }
+    const { id } = user;
     try {
       const { data } = await api.addFavourites(id, item);
       dispatch(addFavouritesSuccess(data));
@@ -155,9 +165,14 @@ export function addFavouritesFailure(error) {
 export function removeFavourites(instagram_url_id) {
   return async (dispatch, getState) => {
     dispatch(removeFavouritesRequest());
-    const {
-      user: { id }
-    } = getState().auth;
+    const user = getState().auth.user;
+    if (!user) {
+      return dispatch({
+        type: types.UNAUTHORIZED,
+        status: 401
+      });
+    }
+    const { id } = user;
     try {
       const { data } = await api.removeFavourites(id, instagram_url_id);
       dispatch(removeFavouritesSuccess(data));

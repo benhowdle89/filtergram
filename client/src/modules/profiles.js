@@ -49,9 +49,14 @@ export default function profiles(state = initialState, action) {
 export function fetchProfiles() {
   return async (dispatch, getState) => {
     dispatch(fetchProfilesRequest());
-    const {
-      user: { id }
-    } = getState().auth;
+    const user = getState().auth.user;
+    if (!user) {
+      return dispatch({
+        type: types.UNAUTHORIZED,
+        status: 401
+      });
+    }
+    const { id } = user;
     try {
       const { data } = await api.fetchProfiles(id);
       dispatch(fetchProfilesSuccess(data));
@@ -85,9 +90,14 @@ export function fetchProfilesFailure(error) {
 export function editProfiles(profiles) {
   return async (dispatch, getState) => {
     dispatch(editProfilesRequest());
-    const {
-      user: { id }
-    } = getState().auth;
+    const user = getState().auth.user;
+    if (!user) {
+      return dispatch({
+        type: types.UNAUTHORIZED,
+        status: 401
+      });
+    }
+    const { id } = user;
     try {
       const { data } = await api.editProfiles(id, profiles);
       dispatch(editProfilesSuccess(data));

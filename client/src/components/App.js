@@ -116,7 +116,9 @@ class App extends Component {
             <Route
               path="/feed"
               exact
-              render={props => <Timeline {...props} />}
+              render={props =>
+                token ? <Timeline {...props} /> : <Redirect to="/login" />
+              }
             />
             <Route exact path="/login" render={props => <Login {...props} />} />
             <Route
@@ -127,13 +129,17 @@ class App extends Component {
             <Route
               exact
               path="/following"
-              render={props => <Profiles {...props} />}
+              render={props =>
+                token ? <Profiles {...props} /> : <Redirect to="/login" />
+              }
             />
 
             <Route
               exact
               path="/favourites"
-              render={props => <Favourites {...props} />}
+              render={props =>
+                token ? <Favourites {...props} /> : <Redirect to="/login" />
+              }
             />
 
             {/* <Route component={NotFound} /> */}
