@@ -16,6 +16,7 @@
     "express": "^4.16.4",
     "express-bearer-token": "^2.2.0",
     "jsonwebtoken": "^8.4.0",
+    "memory-cache": "^0.2.0",
     "node-fetch": "^2.3.0",
     "pg": "^7.6.1",
     "puppeteer": "^1.10.0"

@@ -106,8 +106,8 @@ const FeedItemActions = styled.div`
 `;
 
 const UserProfilePic = styled.img`
-  width: 48px;
-  height: 48px;
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   margin-right: 12px;
 `;
@@ -208,17 +208,21 @@ class FeedItem extends React.Component {
                 : "Add to Filtergram Favourites"}
             </Button>
           </FeedItemActions>
-          <FeedUser className="p2">
+          <FeedUser className="py2">
             <UserProfilePic src={media.user_profile_pic} />
-            <p
-              dangerouslySetInnerHTML={{
-                __html: linkify(
-                  username,
-                  undefined,
-                  '<a href="https://www.instagram.com/{username}" data-external>@{username}</a>'
-                )
-              }}
-            />
+            <div>
+              <p
+                dangerouslySetInnerHTML={{
+                  __html: linkify(
+                    username,
+                    undefined,
+                    '<a href="https://www.instagram.com/{username}" data-external>@{username}</a>'
+                  )
+                }}
+              />
+              {/* <p>{media.user_bio}</p>
+              <a href={media.user_url}>{media.user_url}</a> */}
+            </div>
           </FeedUser>
           <FeedItemCaption className="py3">
             <div className="mb3">
