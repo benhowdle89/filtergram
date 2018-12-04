@@ -12,6 +12,7 @@ import Nav from "./../components/Nav";
 import FeedItem from "./../components/FeedItem";
 import { Empty } from "./../components/Empty";
 import { Error } from "./../components/Error";
+import { Loading } from "./../components/Loading";
 
 class Favourites extends Component {
   componentDidMount() {
@@ -33,7 +34,7 @@ class Favourites extends Component {
       <div>
         <Nav />
         <div>
-          {fetching && <p>Loading...</p>}
+          {fetching && <Loading />}
           {error && <Error>{error}</Error>}
           {!favourites.length && !fetching && (
             <Empty>
