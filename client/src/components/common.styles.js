@@ -12,3 +12,9 @@ export const HeadingText = styled.h3`
   text-transform: uppercase;
   margin-bottom: 0.5rem;
 `;
+
+export const SmallNote = styled.p`
+  font-size: 0.6rem;
+  color: #222;
+  text-transform: uppercase;
+`;

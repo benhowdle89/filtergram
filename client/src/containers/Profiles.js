@@ -9,9 +9,9 @@ import Nav from "./../components/Nav";
 import { Button } from "./../components/Button";
 import { Loading } from "./../components/Loading";
 import { Error } from "./../components/Error";
-import { Empty } from "./../components/Empty";
 import { FilterInput } from "./../components/FilterInput";
 import { Hr } from "./../components/Hr";
+import { SmallNote } from "./../components/common.styles";
 
 import { fetchProfiles, editProfiles } from "./../modules/profiles";
 
@@ -21,24 +21,13 @@ class Profiles extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      usernames: [],
       newUsername: ""
     };
   }
   componentDidMount() {
     if (!this.props.profiles.usernamesById.length) this.props.fetchProfiles();
-    if (this.props.profiles.usernamesById.length) {
-      this.setUsernames();
-    }
   }
-  componentDidUpdate(prevProps) {
-    if (
-      !prevProps.profiles.usernamesById.length &&
-      this.props.profiles.usernamesById.length
-    ) {
-      this.setUsernames();
-    }
-  }
+
   formatUsernamesForState = () => {
     return this.props.profiles.usernamesById.map(u => {
       return {
@@ -47,19 +36,8 @@ class Profiles extends Component {
       };
     });
   };
-  setUsernames = () => {
-    const usernames = this.formatUsernamesForState();
-    this.setState({
-      usernames
-    });
-  };
-  hasBeenEdited = () => {
-    const propsUsernames = this.formatUsernamesForState();
-    const { usernames } = this.state;
-    return JSON.stringify(propsUsernames) !== JSON.stringify(usernames);
-  };
-  handleSubmit = () => {
-    this.props.editProfiles(this.state.usernames);
+  handleSubmit = newUsernames => {
+    this.props.editProfiles(newUsernames);
   };
   handleAddNewUsername = () => {
     const value = this.state.newUsername;
@@ -76,68 +54,55 @@ class Profiles extends Component {
   };
   onAddNewUsername = username => {
     username = username.toLowerCase().trim();
+    const usernames = this.formatUsernamesForState();
     this.setState(
       {
-        usernames: [
-          ...this.state.usernames,
+        newUsername: ""
+      },
+      () => {
+        this.handleSubmit([
+          ...usernames,
           {
             username,
             filters: []
           }
-        ],
-        newUsername: ""
-      },
-      this.handleSubmit
+        ]);
+      }
     );
   };
   onRemoveUsername = username => {
-    this.setState(
-      {
-        usernames: [
-          ...this.state.usernames.filter(u => u.username !== username)
-        ]
-      },
-      this.handleSubmit
-    );
+    this.handleSubmit([
+      ...this.formatUsernamesForState().filter(u => u.username !== username)
+    ]);
   };
   onAddFilter = ({ username, filter }) => {
-    this.setState(
-      {
-        usernames: [
-          ...this.state.usernames.map(u => {
-            if (u.username !== username) return u;
-            return {
-              ...u,
-              filters: uniq([...u.filters, filter.toLowerCase().trim()])
-            };
-          })
-        ]
-      },
-      this.handleSubmit
-    );
+    this.handleSubmit([
+      ...this.formatUsernamesForState().map(u => {
+        if (u.username !== username) return u;
+        return {
+          ...u,
+          filters: uniq([...u.filters, filter.toLowerCase().trim()])
+        };
+      })
+    ]);
   };
   onRemoveFilter = ({ username, filter }) => {
-    this.setState(
-      {
-        usernames: [
-          ...this.state.usernames.map(u => {
-            if (u.username !== username) return u;
-            return {
-              ...u,
-              filters: [...u.filters.filter(f => f !== filter)]
-            };
-          })
-        ]
-      },
-      this.handleSubmit
-    );
+    this.handleSubmit([
+      ...this.formatUsernamesForState().map(u => {
+        if (u.username !== username) return u;
+        return {
+          ...u,
+          filters: [...u.filters.filter(f => f !== filter)]
+        };
+      })
+    ]);
   };
   handleRemove = username => username && this.onRemoveUsername(username);
   render() {
     const {
       profiles: { fetching, error }
     } = this.props;
-    const { usernames } = this.state;
+    const usernames = this.formatUsernamesForState();
     const tagPlaceholder = "Add an Instagram username";
     return (
       <div>
@@ -155,7 +120,7 @@ class Profiles extends Component {
           {!error && (
             <div className="mb4">
               <p className="bold mb2">Who do you want to follow?</p>
-              <div className="flex justify-between items-center">
+              <div className="flex justify-between items-center mb2">
                 <input
                   type="text"
                   disabled={fetching}
@@ -176,6 +141,12 @@ class Profiles extends Component {
                   </Button>
                 )}
               </div>
+              <SmallNote>
+                <p>
+                  <span className="bold">Note:</span> Private Instagram accounts
+                  cannot be followed.
+                </p>
+              </SmallNote>
             </div>
           )}
 
