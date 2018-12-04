@@ -234,7 +234,6 @@ api.post(
     }
     const hashedPassword = hashUserPassword(password.trim());
     let insertedUsers;
-    email = email.toLowerCase().trim();
     try {
       insertedUsers = await model.createUser(email, hashedPassword);
     } catch (e) {
