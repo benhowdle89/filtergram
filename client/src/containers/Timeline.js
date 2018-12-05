@@ -29,7 +29,6 @@ class Timeline extends Component {
     return (
       <div>
         <Nav />
-        {fetching && <Loading />}
         {error && <Error>Error: {error}</Error>}
         {!usernamesById.length && !fetching && (
           <Empty>

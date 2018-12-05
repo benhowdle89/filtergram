@@ -6,6 +6,7 @@ import FeedItem from "./FeedItem";
 import { Button } from "./Button";
 import { Hr } from "./Hr";
 import { Empty } from "./Empty";
+import { Loading } from "./Loading";
 
 const FeedList = styled.div``;
 
@@ -85,6 +86,7 @@ export class Feed extends React.Component {
 
     return (
       <div className="pb4">
+        {fetching && <Loading />}
         {!feed.length && !fetching && (
           <Empty>
             No posts. Try <Link to="/following">following</Link> some Instagram

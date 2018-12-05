@@ -7,6 +7,7 @@ import { signUp } from "./../modules/auth";
 import Nav from "./../components/Nav";
 import { Button } from "./../components/Button";
 import { Error } from "./../components/Error";
+import { Loading } from "./../components/Loading";
 
 class SignUp extends Component {
   constructor(props) {
@@ -74,7 +75,8 @@ class SignUp extends Component {
                 onChange={e => this.setState({ password: e.target.value })}
               />
             </div>
-            <Button>Sign up</Button>
+            {this.props.auth.forms.signUp.fetching && <Loading />}
+            {!this.props.auth.forms.signUp.fetching && <Button>Sign up</Button>}
           </form>
         </div>
       </div>

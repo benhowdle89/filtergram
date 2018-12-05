@@ -109,7 +109,7 @@ class Profiles extends Component {
         <Nav />
 
         <div className="max-width-1 mx-auto my4">
-          {fetching && <Loading />}
+          {fetching && <Loading overlay />}
           {error && (
             <Error>
               <p className="mb2">{error}</p>
@@ -142,10 +142,8 @@ class Profiles extends Component {
                 )}
               </div>
               <SmallNote>
-                <p>
-                  <span className="bold">Note:</span> Private Instagram accounts
-                  cannot be followed.
-                </p>
+                <span className="bold">Note:</span> Private Instagram accounts
+                cannot be followed.
               </SmallNote>
             </div>
           )}

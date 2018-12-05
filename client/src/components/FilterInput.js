@@ -46,13 +46,13 @@ export const FilterInput = ({
         <input
           ref={el => (newFilterInput = el)}
           type="text"
-          placeholder="ie. food, gym, tech, etc..."
+          placeholder="ie. food"
           onKeyDown={({ keyCode }) => {
             if (keyCode === 13) handleAdd();
           }}
         />
         <Button className="ml1" onClick={handleAdd}>
-          Save
+          Add
         </Button>
       </div>
     </div>

@@ -16,6 +16,7 @@ const Item = styled.div`
   border-bottom: 3px solid paleturquoise;
   box-shadow: 0px 2px 0px #000;
   overflow: hidden;
+  min-height: 290px;
   @media (max-width: 700px) {
     flex-direction: column;
     padding-bottom: 0;

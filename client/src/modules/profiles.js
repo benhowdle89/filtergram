@@ -102,7 +102,7 @@ export function editProfiles(profiles) {
       const { data } = await api.editProfiles(id, profiles);
       dispatch(editProfilesSuccess(data));
     } catch (error) {
-      const message = "Wrong information";
+      const message = "Something went deeply wrong with this. Sorry.";
       dispatch(editProfilesFailure(message));
     }
   };
