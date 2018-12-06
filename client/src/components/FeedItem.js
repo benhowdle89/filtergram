@@ -5,11 +5,13 @@ import { Carousel } from "react-responsive-carousel";
 import linkify from "linkify-instagram";
 import distanceInWordsToNow from "date-fns/distance_in_words_to_now";
 import Truncate from "react-truncate-html";
+import ImageLoader from "react-loading-image";
 
 import "react-responsive-carousel/lib/styles/carousel.min.css";
 
 import { Button } from "./Button";
 import { HeadingText } from "./common.styles";
+import { Loading } from "./Loading";
 
 const Item = styled.div`
   display: flex;
@@ -172,7 +174,9 @@ class FeedItem extends React.Component {
           <Ago className="py1 px2">
             {distanceInWordsToNow(new Date(media.timestamp * 1000))} ago
           </Ago>
-          {media.type === "GraphImage" && <img src={media.image_url} />}
+          {media.type === "GraphImage" && (
+            <ImageLoader src={media.image_url} loading={() => <Loading />} />
+          )}
           {media.type === "GraphSidecar" && (
             <Carousel showArrows={true} showThumbs={false}>
               {media.extraMedia.map(e => {
@@ -191,7 +195,7 @@ class FeedItem extends React.Component {
                 }
                 return (
                   <div key={url}>
-                    <img src={url} />
+                    <ImageLoader src={url} loading={() => <Loading />} />
                   </div>
                 );
               })}

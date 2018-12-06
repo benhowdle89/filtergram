@@ -6943,6 +6943,11 @@ react-lifecycles-compat@^3.0.0:
   version "3.0.4"
   resolved "https://registry.yarnpkg.com/react-lifecycles-compat/-/react-lifecycles-compat-3.0.4.tgz#4f1a273afdfc8f3488a8c516bfda78f872352362"
 
+react-loading-image@^0.5.0:
+  version "0.5.0"
+  resolved "https://registry.yarnpkg.com/react-loading-image/-/react-loading-image-0.5.0.tgz#f5ab33c03763ea4c1b80f8293c22b057d299ff69"
+  integrity sha512-6m4brZ0S1EaNmS0qeq+g1OWeU41bff/OYyLk39zWV1ZvKF0S9yrh6YAK8KkG2ow12nV9QdbSI/ODhPvsDfR2Pg==
+
 react-redux@^5.1.1:
   version "5.1.1"
   resolved "https://registry.yarnpkg.com/react-redux/-/react-redux-5.1.1.tgz#88e368682c7fa80e34e055cd7ac56f5936b0f52f"

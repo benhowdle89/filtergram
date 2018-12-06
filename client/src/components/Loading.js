@@ -1,6 +1,8 @@
 import React from "react";
 import styled from "styled-components";
 
+import Puff from "./../assets/puff.svg";
+
 const LoadingElement = styled.div`
   display: flex;
   align-items: center;
@@ -22,7 +24,7 @@ export const Loading = ({ overlay = false }) => {
       overlay={overlay}
       className={`${overlay ? "" : "my3"} block`}
     >
-      <img src="/puff.svg" />
+      <img src={Puff} />
     </LoadingElement>
   );
 };

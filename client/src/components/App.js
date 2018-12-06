@@ -55,6 +55,9 @@ const GlobalStyle = createGlobalStyle`
     max-width: 100%;
     display: block;
   }
+  img {
+    height: 100%;
+  }
   label {
     font-weight: 600;
     margin-right: 1rem;
