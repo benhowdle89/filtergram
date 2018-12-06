@@ -18,13 +18,17 @@ const LoadingElement = styled.div`
     height: 100vh;`}
 `;
 
+const LoadingImg = styled.img`
+  height: auto;
+`
+
 export const Loading = ({ overlay = false }) => {
   return (
     <LoadingElement
       overlay={overlay}
       className={`${overlay ? "" : "my3"} block`}
     >
-      <img src={Puff} />
+      <LoadingImg src={Puff} />
     </LoadingElement>
   );
 };
