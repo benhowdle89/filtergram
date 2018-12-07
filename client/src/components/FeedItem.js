@@ -32,6 +32,9 @@ const FeedItemImage = styled.div`
   border: 3px solid #000;
   box-shadow: -6px 6px 0px paleturquoise;
   left: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   @media (max-width: 700px) {
     width: 100vw;
     margin: 0 -24px;
@@ -175,7 +178,13 @@ class FeedItem extends React.Component {
             {distanceInWordsToNow(new Date(media.timestamp * 1000))} ago
           </Ago>
           {media.type === "GraphImage" && (
-            <ImageLoader src={media.image_url} loading={() => <Loading />} />
+            <ImageLoader
+              style={{
+                height: "100%"
+              }}
+              src={media.image_url}
+              loading={() => <Loading />}
+            />
           )}
           {media.type === "GraphSidecar" && (
             <Carousel showArrows={true} showThumbs={false}>
@@ -195,7 +204,13 @@ class FeedItem extends React.Component {
                 }
                 return (
                   <div key={url}>
-                    <ImageLoader src={url} loading={() => <Loading />} />
+                    <ImageLoader
+                      style={{
+                        height: "100%"
+                      }}
+                      src={url}
+                      loading={() => <Loading />}
+                    />
                   </div>
                 );
               })}
