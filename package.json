@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
+    "bluebird": "^3.5.3",
     "body-parser": "^1.18.3",
     "cheerio": "^1.0.0-rc.2",
     "cookie-parser": "^1.4.3",
@@ -19,7 +20,8 @@
     "memory-cache": "^0.2.0",
     "node-fetch": "^2.3.0",
     "pg": "^7.6.1",
-    "puppeteer": "^1.10.0"
+    "puppeteer": "^1.10.0",
+    "redis": "^2.8.0"
   },
   "scripts": {
     "client": "cd client && yarn start",
