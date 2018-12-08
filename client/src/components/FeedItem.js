@@ -145,6 +145,7 @@ class FeedItem extends React.Component {
     return favourites.map(f => f.instagram_url_id).includes(id);
   };
   getCaption = ({ caption }) => {
+    if (!caption) return null
     const html = linkify(caption).replace(/(?:\r\n|\r|\n)/g, "<br />");
     if (!this.state.expanded && caption.length > MAX_CAPTION_SIZE) {
       return (
