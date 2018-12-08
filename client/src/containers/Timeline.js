@@ -30,12 +30,6 @@ class Timeline extends Component {
       <div>
         <Nav />
         {error && <Error>Error: {error}</Error>}
-        {!usernamesById.length && !fetching && (
-          <Empty>
-            Nothing to show. Go add some{" "}
-            <Link to="/following">Instagram usernames</Link>.
-          </Empty>
-        )}
         {
           <Feed
             usernames={usernames}

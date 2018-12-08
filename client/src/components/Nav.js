@@ -120,7 +120,7 @@ class Nav extends React.Component {
               className="mr1"
               to="/login"
             >
-              Login
+              Log In
             </NavItem>
           )}
           {!loggedIn && (

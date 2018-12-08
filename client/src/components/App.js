@@ -34,7 +34,7 @@ const GlobalStyle = createGlobalStyle`
     color:#000;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size: 1rem;
-    line-height: 1.6;
+    line-height: 1.8;
     overflow:auto
   }
   a {
