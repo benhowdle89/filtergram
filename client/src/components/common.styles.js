@@ -4,6 +4,7 @@ export const Container = styled.div`
   max-width: 935px;
   margin: auto;
   padding: 0 24px 24px 24px;
+  height: 100%;
 `;
 
 export const HeadingText = styled.h3`

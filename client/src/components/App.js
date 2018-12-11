@@ -24,6 +24,9 @@ const GlobalStyle = createGlobalStyle`
     border: 0;
     vertical-align: baseline;
   }
+  html, body {
+    height: 100%;
+  }
   html{
     font-size:16px
   }
@@ -35,7 +38,6 @@ const GlobalStyle = createGlobalStyle`
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     font-size: 1rem;
     line-height: 1.8;
-    overflow:auto
   }
   a {
     color: inherit;
@@ -72,13 +74,17 @@ const GlobalStyle = createGlobalStyle`
     font-size: 14px;
     font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
     box-sizing: border-box;
+    appearance: none;
+    border-radius: 0;
   }
   .pointer { cursor: pointer; }
+  .h-100 { height: 100%; }
 `;
 
 const AppElement = styled.div`
   max-width: 1800px;
   margin: auto;
+  height: 100%;
 `;
 
 class App extends Component {

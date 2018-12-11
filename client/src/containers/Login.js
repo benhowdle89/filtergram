@@ -42,7 +42,7 @@ class Login extends Component {
   };
   render() {
     return (
-      <div>
+      <div className="h-100">
         <Nav />
         <div className="max-width-1 mx-auto my4">
           <form
