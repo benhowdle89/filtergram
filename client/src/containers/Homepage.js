@@ -85,7 +85,7 @@ export default class Homepage extends React.Component {
           </HalfWidth>
         </HomepageWrap>
         <Hr />
-        <Footer>
+        <Footer className="pb2">
           <p>
             Made by <a href="https://benhowdle.im">Ben Howdle</a>
           </p>
