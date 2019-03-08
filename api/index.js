@@ -20,7 +20,12 @@ const hashUserPassword = password => {
 const requireSession = async req => {
   const { token } = req;
   if (!token) return null;
-  return auth.fetch(token);
+  try {
+    const session = await auth.fetch(token);
+    if (session) return session;
+  } catch (error) {
+    return null;
+  }
 };
 
 const fetchInstagramProfilesForUsernames = async (
