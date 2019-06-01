@@ -8,10 +8,11 @@ const StyledButton = styled.button`
   background-color: ${props =>
     !props.destructive
       ? props.secondary
-        ? "silver"
+        ? "transparent"
         : "paleturquoise"
       : "#e74c3c"};
-  box-shadow: -3px 3px 0px #000;
+  box-shadow: ${props => (props.secondary ? "none" : "-3px 3px 0px #000")};
+  text-decoration: ${props => (props.secondary ? "underline" : "none")};
   outline: 0;
   color: ${props => (!props.destructive ? "#000" : "#fff")};
   font-weight: 800;
@@ -26,7 +27,8 @@ const StyledButton = styled.button`
   }
   & > span {
     display: inline-block;
-    border-bottom: 2px solid transparent;
+    border-bottom: ${props =>
+      props.secondary ? "2px solid #000" : "2px solid transparent"};
   }
   &:hover {
     opacity: 0.9;
