@@ -14,6 +14,7 @@ import Homepage from "../containers/Homepage";
 import Login from "../containers/Login";
 import SignUp from "../containers/SignUp";
 import Favourites from "../containers/Favourites";
+import ResetPassword from "../containers/ResetPassword";
 
 import { Container } from "../components/common.styles";
 
@@ -132,6 +133,11 @@ class App extends Component {
               exact
               path="/sign-up"
               render={props => <SignUp {...props} />}
+            />
+            <Route
+              exact
+              path="/reset-password"
+              render={props => <ResetPassword {...props} />}
             />
             <Route
               exact

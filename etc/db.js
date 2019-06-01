@@ -14,7 +14,11 @@ const pool = new Pool({
 // process.on("SIGINT", shutdown);
 
 module.exports = async (query, values) => {
-  console.log(`Running query ${query} with values ${values}`);
   const { rows } = await pool.query(query, values);
+  console.log(
+    `Running query ${query} with values ${values} produced: ${JSON.stringify(
+      rows
+    )}`
+  );
   return rows;
 };

@@ -2,11 +2,12 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { withRouter } from "react-router-dom";
 
-import { loginUsernamePassword } from "./../modules/auth";
+import { loginUsernamePassword, loginForgotPassword } from "./../modules/auth";
 
 import Nav from "./../components/Nav";
 import { Button } from "./../components/Button";
 import { Error } from "./../components/Error";
+import { Success } from "./../components/Success";
 import { Loading } from "./../components/Loading";
 
 class Login extends Component {
@@ -15,7 +16,8 @@ class Login extends Component {
     this.state = {
       email: "",
       password: "",
-      error: null
+      error: null,
+      success: null
     };
   }
   componentDidUpdate(prevProps, prevState) {
@@ -31,7 +33,26 @@ class Login extends Component {
       });
     }
   }
+  clearSuccess = () => this.setState({ success: null });
+  handleForgotPasswordSubmit = () => {
+    this.clearSuccess();
+    const { email } = this.state;
+    if (!email) {
+      return this.setState({
+        error: "Please fill out your email"
+      });
+    }
+    this.props.loginForgotPassword(email).then(() => {
+      if (!this.props.auth.forms.usernamePassword.error) {
+        return this.setState({
+          success:
+            "Email with password reset instructions sent, please check your inbox."
+        });
+      }
+    });
+  };
   handleSubmit = () => {
+    this.clearSuccess();
     const { email, password } = this.state;
     if (!email || !password) {
       return this.setState({
@@ -52,6 +73,7 @@ class Login extends Component {
             }}
           >
             {this.state.error && <Error>{this.state.error}</Error>}
+            {this.state.success && <Success>{this.state.success}</Success>}
             <div>
               <label>Email</label>
               <input
@@ -69,9 +91,20 @@ class Login extends Component {
               />
             </div>
             {this.props.auth.forms.usernamePassword.fetching && <Loading />}
-            {!this.props.auth.forms.usernamePassword.fetching && (
-              <Button>Log in</Button>
-            )}
+            <div className="flex justify-between">
+              {!this.props.auth.forms.usernamePassword.fetching && (
+                <Button>Log in</Button>
+              )}
+              <Button
+                onClick={e => {
+                  e.preventDefault();
+                  this.handleForgotPasswordSubmit();
+                }}
+                secondary
+              >
+                Forgot password?
+              </Button>
+            </div>
           </form>
         </div>
       </div>
@@ -84,7 +117,8 @@ const mapStateToProps = state => ({
 });
 
 const mapDispatchToProps = {
-  loginUsernamePassword
+  loginUsernamePassword,
+  loginForgotPassword
 };
 
 export default withRouter(

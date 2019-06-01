@@ -6,7 +6,11 @@ const StyledButton = styled.button`
   cursor: pointer;
   appearance: none;
   background-color: ${props =>
-    !props.destructive ? "paleturquoise" : "#e74c3c"};
+    !props.destructive
+      ? props.secondary
+        ? "silver"
+        : "paleturquoise"
+      : "#e74c3c"};
   box-shadow: -3px 3px 0px #000;
   outline: 0;
   color: ${props => (!props.destructive ? "#000" : "#fff")};
