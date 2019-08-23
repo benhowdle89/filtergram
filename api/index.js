@@ -8,6 +8,9 @@ const { sendForgotPasswordEmail } = require("./../etc/send-mail");
 
 const api = express.Router();
 
+const sleep = async seconds =>
+  new Promise(res => setTimeout(res, seconds * 1000));
+
 const hashUserPassword = password => {
   let hashed;
   try {
@@ -35,6 +38,7 @@ const fetchInstagramProfilesForUsernames = async (
 ) => {
   const items = await Promise.all(
     usernames.map(async u => {
+      await sleep(0.25);
       const media = await instagram.fetchInstagramProfile(
         u.username,
         !ignoreFilters && u.filters
@@ -49,23 +53,23 @@ const fetchInstagramProfilesForUsernames = async (
   return items.filter(Boolean);
 };
 
-api.get(
-  "/users/total",
-  asyncMiddleware(async (req, res) => {
-    const count = await model.getTotalUsers();
-    return res.json(count);
-  })
-);
+// api.get(
+//   "/users/total",
+//   asyncMiddleware(async (req, res) => {
+//     const count = await model.getTotalUsers();
+//     return res.json(count);
+//   })
+// );
 
-api.get(
-  "/ig/:instagramId",
-  asyncMiddleware(async (req, res) => {
-    const { instagramId } = req.params;
-    if (!instagramId) return res.sendStatus(404);
-    const media = await instagram.fetchInstagramProfile(instagramId);
-    return res.json(media);
-  })
-);
+// api.get(
+//   "/ig/:instagramId",
+//   asyncMiddleware(async (req, res) => {
+//     const { instagramId } = req.params;
+//     if (!instagramId) return res.sendStatus(404);
+//     const media = await instagram.fetchInstagramProfile(instagramId);
+//     return res.json(media);
+//   })
+// );
 
 api.get(
   "/profiles/:userId",
