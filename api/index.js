@@ -8,9 +8,6 @@ const { sendForgotPasswordEmail } = require("./../etc/send-mail");
 
 const api = express.Router();
 
-const sleep = async seconds =>
-  new Promise(res => setTimeout(res, seconds * 1000));
-
 const hashUserPassword = password => {
   let hashed;
   try {
@@ -36,20 +33,18 @@ const fetchInstagramProfilesForUsernames = async (
   usernames,
   ignoreFilters = false
 ) => {
-  const items = await Promise.all(
-    usernames.map(async u => {
-      await sleep(0.25);
-      const media = await instagram.fetchInstagramProfile(
-        u.username,
-        !ignoreFilters && u.filters
-      );
-      if (!media.length) return null;
-      return {
-        media,
-        username: u.username
-      };
-    })
-  );
+  const items = [];
+  for (const u of usernames) {
+    const media = await instagram.fetchInstagramProfile(
+      u.username,
+      !ignoreFilters && u.filters
+    );
+    if (!media.length) return null;
+    items.push({
+      media,
+      username: u.username
+    });
+  }
   return items.filter(Boolean);
 };
 
