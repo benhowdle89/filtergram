@@ -89,7 +89,7 @@ api.get(
     );
     return res.json(
       profiles.map(profile => {
-        const userMedia = medias.find(m => m.username === profile.username);
+        const userMedia = medias && medias.find(m => m.username === profile.username);
         return {
           ...profile,
           filters: profile.filters ? profile.filters.filters : [],
