@@ -115,13 +115,19 @@ class App extends Component {
           <GlobalStyle />
           <Switch>
             <Route
-              path="/"
-              exact
-              render={props =>
-                token ? <Redirect to="/feed" /> : <Homepage {...props} />
-              }
+              path="*"
+              render={props => {
+                const {
+                  location: { pathname }
+                } = props;
+                return pathname !== "/" ? (
+                  <Redirect to="/" />
+                ) : (
+                  <Homepage {...props} />
+                );
+              }}
             />
-            <Route
+            {/* <Route
               path="/feed"
               exact
               render={props =>
@@ -153,7 +159,7 @@ class App extends Component {
               render={props =>
                 token ? <Favourites {...props} /> : <Redirect to="/login" />
               }
-            />
+            /> */}
 
             {/* <Route component={NotFound} /> */}
           </Switch>

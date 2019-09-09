@@ -63,81 +63,12 @@ class Nav extends React.Component {
   };
   render() {
     const {
-      auth: { token },
       location: { pathname }
     } = this.props;
-    const loggedIn = !!token;
     return (
       <NavMenu className="py3 mb3">
         <div>
           <Logo className={!isHome(pathname) && "mb2"}>Filtergram</Logo>
-          {!loggedIn && !isHome(pathname) && (
-            <NavItem
-              exact
-              activeClassName={activeClassName}
-              className="mr1"
-              to="/"
-            >
-              Home
-            </NavItem>
-          )}
-          {loggedIn && (
-            <NavItem
-              exact
-              activeClassName={activeClassName}
-              className="mr1"
-              to="/feed"
-            >
-              Feed
-            </NavItem>
-          )}
-          {loggedIn && (
-            <NavItem
-              exact
-              activeClassName={activeClassName}
-              className="mr1"
-              to="/following"
-            >
-              Following
-            </NavItem>
-          )}
-          {loggedIn && (
-            <NavItem
-              activeClassName={activeClassName}
-              exact
-              className="mr1"
-              to="/favourites"
-            >
-              Favourites
-            </NavItem>
-          )}
-        </div>
-        <div>
-          {!loggedIn && (
-            <NavItem
-              activeClassName={activeClassName}
-              exact
-              className="mr1"
-              to="/login"
-            >
-              Log In
-            </NavItem>
-          )}
-          {!loggedIn && (
-            <NavItem
-              activeClassName={activeClassName}
-              exact
-              className="mr1"
-              to="/sign-up"
-            >
-              Sign up
-            </NavItem>
-          )}
-          {loggedIn && (
-            <Button destructive onClick={this.handleLogout}>
-              Logout
-            </Button>
-          )}
         </div>
       </NavMenu>
     );

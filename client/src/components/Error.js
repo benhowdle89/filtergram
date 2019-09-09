@@ -3,8 +3,8 @@ import styled from "styled-components";
 
 const ErrorElement = styled.div`
   display: flex;
-  align-items: center;
-  justify-content: center;
+  /* align-items: center;
+  justify-content: center; */
   font-weight: 600;
   color: #fff;
   background: #e74c3c;
@@ -13,7 +13,7 @@ const ErrorElement = styled.div`
 
 export const Error = ({ children }) => {
   return (
-    <ErrorElement className="my3 py2 block flex flex-column">
+    <ErrorElement className="my3 p2 block flex flex-column">
       {children}
     </ErrorElement>
   );
