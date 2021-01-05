@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "axios": "^0.18.0",
+    "axios": "^0.21.1",
     "basscss": "8.0.2",
     "date-fns": "^1.29.0",
     "linkify-instagram": "^0.6.2",
