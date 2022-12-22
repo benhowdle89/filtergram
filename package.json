@@ -14,7 +14,7 @@
     "express": "^4.16.4",
     "express-bearer-token": "^2.2.0",
     "got": "^9.6.0",
-    "jsonwebtoken": "^8.4.0",
+    "jsonwebtoken": "^9.0.0",
     "mailgun-js": "^0.22.0",
     "memory-cache": "^0.2.0",
     "pg": "^7.6.1",
